@@ -63,13 +63,11 @@ void SimController::Disconnect()
 
 void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
 {
-    bool connectedOnce = false;
-    
-    if (_isConnected == true)
-        connectedOnce = true;
-
     while ((_isConnected == false && connectOnce == true) || connectOnce == false)
     {
+        if (_searchActive != true)
+            break;
+
         if (_isConnected != true)
         {
             TryConnect();
@@ -111,7 +109,8 @@ void SimController::StopSearch()
     std::cout << "Stopping the search...\r\n";
     _searchActive = false;
 
-    _searchThread->join();
+    if(_searchThread->joinable())
+        _searchThread->join();
     std::cout << "Search terminated\r\n";
 
     if (_searchThread == nullptr)
@@ -123,6 +122,8 @@ void SimController::StopSearch()
 
 SimController::~SimController()
 {
+    StopSearch();
+
     if (_controllerThread == nullptr)
         return;
 
