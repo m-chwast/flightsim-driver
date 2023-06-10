@@ -12,6 +12,6 @@ private:
 public:
 
 	// Inherited via ModuleBase
-	virtual bool Initialize() override;
-	virtual bool Manage() override;
+	virtual void Initialize() override;
+	virtual void Manage() override;
 };

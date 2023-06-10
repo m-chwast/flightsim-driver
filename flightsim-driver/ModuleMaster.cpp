@@ -1,19 +1,17 @@
 #include "ModuleMaster.h"
 
-bool ModuleMaster::Initialize()
+void ModuleMaster::Initialize()
 {
     for (ModuleBase& m : _modules)
     {
         m.Initialize();
     }
-    return true;
 }
 
-bool ModuleMaster::Manage()
+void ModuleMaster::Manage()
 {
     for (ModuleBase& m : _modules)
     {
         m.Manage();
     }
-    return true;
 }

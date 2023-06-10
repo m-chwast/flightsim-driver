@@ -4,6 +4,6 @@ class ModuleBase
 {
 public:
 	
-	virtual bool Initialize() = 0;
-	virtual bool Manage() = 0;
+	virtual void Initialize() = 0;
+	virtual void Manage() = 0;
 };
