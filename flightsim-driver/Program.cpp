@@ -26,6 +26,5 @@ void Program::Run()
 		Loop();
 	}
 
-	simController.StopSearchForServer();
 	consoleThread.join();
 }

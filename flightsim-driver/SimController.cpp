@@ -123,11 +123,12 @@ void SimController::StopSearch()
 SimController::~SimController()
 {
     StopSearch();
-
     if (_controllerThread == nullptr)
         return;
 
+    _stopControllerFlag = true;
     _controllerThread->join();
+    std::cout << "Controller thread joined\r\n";
     delete _controllerThread;
     _controllerThread = nullptr;
 }
