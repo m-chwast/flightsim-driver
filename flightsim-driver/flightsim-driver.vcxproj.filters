@@ -36,6 +36,9 @@
     <ClCompile Include="ModuleMaster.cpp">
       <Filter>Source Files\Module</Filter>
     </ClCompile>
+    <ClCompile Include="SimController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="ModuleMaster.h">
       <Filter>Header Files\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="SimController.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
