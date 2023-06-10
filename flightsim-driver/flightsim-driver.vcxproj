@@ -139,10 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModuleBase.cpp" />
     <ClCompile Include="Program.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleManager.h" />
+    <ClInclude Include="ModuleBase.h" />
     <ClInclude Include="Program.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
