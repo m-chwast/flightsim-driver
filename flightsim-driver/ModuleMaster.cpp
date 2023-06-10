@@ -2,10 +2,18 @@
 
 bool ModuleMaster::Initialize()
 {
-    return false;
+    for (ModuleBase& m : _modules)
+    {
+        m.Initialize();
+    }
+    return true;
 }
 
 bool ModuleMaster::Manage()
 {
-    return false;
+    for (ModuleBase& m : _modules)
+    {
+        m.Manage();
+    }
+    return true;
 }
