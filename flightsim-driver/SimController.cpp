@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "SimController.h"
 
 bool SimController::TryConnect()
@@ -41,4 +42,49 @@ void SimController::Disconnect()
     }
 
     std::cout << "Disconnection error\r\n";
+}
+
+void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
+{
+    bool connectedOnce = false;
+    
+    if (_isConnected == true)
+        connectedOnce = true;
+
+    while ((_isConnected == false && connectOnce == true) || connectOnce == false)
+    {
+        if (_isConnected != true)
+        {
+            TryConnect();
+        }
+        //wait with next try for specified time
+        std::this_thread::sleep_for(std::chrono::milliseconds(period));
+    }
+}
+
+void SimController::SearchForServer(unsigned period, bool stopSearchAfterFirstConnection)
+{
+    //something went wrong and search was called twice, so stop the previous instance
+    if (_searchThread != nullptr)
+        StopSearch();
+
+    std::cout << "Searching for server...\r\n";
+    _searchActive = true;
+    _searchThread = new std::thread(&SimController::TryConnectPeriodically, 
+        this, period, stopSearchAfterFirstConnection);
+}
+
+void SimController::StopSearch()
+{
+    std::cout << "Stopping the search...\r\n";
+    _searchActive = false;
+
+    _searchThread->join();
+    std::cout << "Search terminated\r\n";
+
+    if (_searchThread == nullptr)
+        return;
+
+    delete _searchThread;
+    _searchThread = nullptr;
 }
