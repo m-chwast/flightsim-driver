@@ -4,7 +4,7 @@
 
 void Program::Initialize()
 {
-
+	simController.SearchForServer();
 }
 
 void Program::Loop()
@@ -26,5 +26,6 @@ void Program::Run()
 		Loop();
 	}
 
+	simController.StopSearchForServer();
 	consoleThread.join();
 }
