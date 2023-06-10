@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Module">
+      <UniqueIdentifier>{7f870b4f-d987-4ee2-a1ab-4c59acf71917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Module">
+      <UniqueIdentifier>{8c47bad0-cad5-4460-a793-77df80875ec5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,28 +27,28 @@
     <ClCompile Include="Program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ConsoleManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleBase.cpp">
+      <Filter>Source Files\Module</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleMaster.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ConsoleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleBase.h">
+      <Filter>Header Files\Module</Filter>
+    </ClInclude>
     <ClInclude Include="ModuleMaster.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Module</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

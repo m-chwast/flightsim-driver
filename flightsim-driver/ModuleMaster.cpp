@@ -2,6 +2,7 @@
 
 void ModuleMaster::Initialize()
 {
+    PrintInitMessage();
     for (ModuleBase& m : _modules)
     {
         m.Initialize();
