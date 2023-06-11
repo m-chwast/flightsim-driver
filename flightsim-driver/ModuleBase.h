@@ -13,4 +13,6 @@ public:
 	
 	virtual void Initialize() = 0;
 	virtual void Manage() = 0;
+
+	virtual ~ModuleBase() {}
 };
