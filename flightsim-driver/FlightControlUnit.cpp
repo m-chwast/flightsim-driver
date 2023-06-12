@@ -41,17 +41,6 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, unsigned id
 	_name = "FCU";
 }
 
-void FlightControlUnit::Initialize()
-{
-	PrintInitMessage();
-
-	bool initOk = EventsInitialize();
-	std::cout << _name << " Event setup " << (initOk == true ? "finished" : "failed") << "\r\n";
-
-	initOk = DataInitialize();
-	std::cout << _name << " Data setup " << (initOk == true ? "finished" : "failed") << "\r\n";
-}
-
 void FlightControlUnit::Manage()
 {
 
