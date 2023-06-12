@@ -5,8 +5,10 @@
 class SimServices
 {
 private:
-	HANDLE _hSimConnect;
+	HANDLE* _hSimConnect;
 
 public:
-	SimServices(HANDLE hSimConnect) : _hSimConnect{ hSimConnect } {}
+	SimServices(HANDLE* hSimConnect) : _hSimConnect{ hSimConnect } {}
+
+	bool SetUpSimEvent(unsigned moduleID, unsigned eventID, const char * simEventName) const;
 };

@@ -5,7 +5,7 @@
 class FlightControlUnit : public ModuleHardware
 {
 private:
-
+	bool EventsInitialize();
 public:
 	FlightControlUnit(const SimServices& simServices);
 
