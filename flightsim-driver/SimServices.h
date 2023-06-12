@@ -16,4 +16,5 @@ public:
 
 	bool SetUpData(unsigned moduleID, const char* dataName, const char* unitsName, 
 		SIMCONNECT_DATATYPE dataType = SIMCONNECT_DATATYPE_FLOAT64) const;
+	bool RequestData(unsigned moduleID, int requestID = 0) const;
 };

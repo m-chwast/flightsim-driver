@@ -45,3 +45,17 @@ bool SimServices::SetUpData(unsigned moduleID, const char* dataName, const char*
 	}
 	return true;
 }
+
+bool SimServices::RequestData(unsigned moduleID, int requestID) const
+{
+	HRESULT res = SimConnect_RequestDataOnSimObject(*_hSimConnect, requestID, moduleID,
+		SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD_ONCE);
+
+	if (res != S_OK)
+	{
+		std::cout << "Error while requesting data. Module: " << moduleID << "\r\n";
+		return false;
+	}
+	std::cout << "Requested data. Module: " << moduleID << "\r\n";
+	return true;
+}
