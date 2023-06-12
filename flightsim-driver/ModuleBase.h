@@ -17,6 +17,8 @@ public:
 		_simServices = &simServices;
 	}
 	
+	const char* GetName() const { return _name.c_str(); }
+
 	virtual void Initialize() = 0;
 	virtual void Manage() = 0;
 

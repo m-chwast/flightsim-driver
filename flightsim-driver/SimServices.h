@@ -1,6 +1,6 @@
 #pragma once
-#include <Windows.h>
-#include "SimConnect.h"
+
+#include <windows.h>
 
 class SimServices
 {
@@ -10,5 +10,6 @@ private:
 public:
 	SimServices(HANDLE* hSimConnect) : _hSimConnect{ hSimConnect } {}
 
-	bool SetUpSimEvent(unsigned moduleID, unsigned eventID, const char * simEventName) const;
+	bool SetUpSimEvent(unsigned moduleID, unsigned eventID, const char* simEventName) const;
+	bool InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD eventData = 0) const;
 };

@@ -1,6 +1,6 @@
+#include "SimController.h"
 #include <iostream>
 #include <chrono>
-#include "SimController.h"
 
 void SimController::ControllerHandler()
 {
