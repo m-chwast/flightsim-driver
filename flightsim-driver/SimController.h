@@ -33,6 +33,8 @@ public:
 	void SearchForServer();
 	void StopSearchForServer();
 
+	bool IsConnected() { return _isConnected; }
+
 	~SimController();
 };
 

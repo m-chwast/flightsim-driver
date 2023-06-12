@@ -7,7 +7,8 @@
 class ModuleMaster : public ModuleBase
 {
 private:
-	
+	bool _initialized = false;
+
 	std::vector<ModuleHardware*> _modules;
 
 public:

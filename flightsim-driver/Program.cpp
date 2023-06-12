@@ -9,7 +9,11 @@ void Program::Initialize()
 
 void Program::Loop()
 {
-
+	if (simController.IsConnected() == true)
+	{
+		moduleMaster.Manage();
+	}
+	Sleep(1);
 }
 
 void Program::Run()
