@@ -9,8 +9,9 @@ typedef enum
 
 typedef struct
 {
-
+	int32_t autopilotAutothrottleArm;
 } FCUData;
+
 
 bool FlightControlUnit::EventsInitialize()
 {
@@ -25,7 +26,13 @@ bool FlightControlUnit::EventsInitialize()
 
 bool FlightControlUnit::DataInitialize()
 {
-	return false;
+	bool initOk = true;
+
+	bool tmpOk = _simServices->SetUpData(GetID(), "AUTOPILOT THROTTLE ARM", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	if (tmpOk != true)
+		initOk = false;
+
+	return initOk;
 }
 
 FlightControlUnit::FlightControlUnit(const SimServices& simServices, unsigned id)
@@ -39,8 +46,10 @@ void FlightControlUnit::Initialize()
 	PrintInitMessage();
 
 	bool initOk = EventsInitialize();
-
 	std::cout << _name << " Event setup " << (initOk == true ? "finished" : "failed") << "\r\n";
+
+	initOk = DataInitialize();
+	std::cout << _name << " Data setup " << (initOk == true ? "finished" : "failed") << "\r\n";
 }
 
 void FlightControlUnit::Manage()
