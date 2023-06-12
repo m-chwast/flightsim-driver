@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ConsoleManager.cpp" />
     <ClCompile Include="ControlDevice.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="SimController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ConsoleManager.h" />
     <ClInclude Include="ControlDevice.h" />
     <ClInclude Include="ModuleBase.h" />

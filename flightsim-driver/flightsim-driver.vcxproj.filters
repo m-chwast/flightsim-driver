@@ -51,6 +51,9 @@
     <ClCompile Include="ControlDevice.cpp">
       <Filter>Source Files\Module\ControlDevice</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Module\ControlDevice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files\Module</Filter>
     </ClInclude>
     <ClInclude Include="ControlDevice.h">
+      <Filter>Header Files\Module\ControlDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
       <Filter>Header Files\Module\ControlDevice</Filter>
     </ClInclude>
   </ItemGroup>
