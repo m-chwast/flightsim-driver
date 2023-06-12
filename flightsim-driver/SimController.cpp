@@ -16,6 +16,7 @@ void SimController::ControllerHandler()
             _stopSearchFlag = false;
             StopSearch();
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 
