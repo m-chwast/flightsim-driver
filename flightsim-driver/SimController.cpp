@@ -81,8 +81,9 @@ void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
     }
 }
 
-SimController::SimController()
+SimController::SimController(const ModuleMaster* moduleMaster)
 {
+    _moduleMaster = moduleMaster;
     _simServices = new SimServices(&_hSimConnect);
     _controllerThread = new std::thread(&SimController::ControllerHandler, this);
 }
@@ -148,11 +149,22 @@ void SimController::DispatchHandler()
         auto eventData = static_cast<SIMCONNECT_RECV_EVENT*>(data);
         std::cout << "Received Event. Module: " << eventData->uGroupID;
         std::cout << ", Event: " << eventData->uEventID << "\r\n";
+        if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
+            break;
+        ModuleHardware* module = _moduleMaster->GetModule(eventData->uGroupID);
+        if (module != nullptr)
+            module->ProcessEvent(eventData);
         break;
     }
     case SIMCONNECT_RECV_ID_SIMOBJECT_DATA:
     {
+        auto simobjectData = static_cast<SIMCONNECT_RECV_SIMOBJECT_DATA*>(data);
         std::cout << ": Received Simobject data\r\n";
+        if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
+            break;
+        ModuleHardware* module = _moduleMaster->GetModule(simobjectData->dwDefineID);
+        if (module != nullptr)
+            module->ProcessData(simobjectData);
         break;
     }
     default:

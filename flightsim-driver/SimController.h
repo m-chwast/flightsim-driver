@@ -4,6 +4,7 @@
 #include <thread>
 #include "SimConnect.h"
 #include "SimServices.h"
+#include "ModuleMaster.h"
 
 class SimController
 {
@@ -22,6 +23,7 @@ private:
 	volatile bool _searchActive = false;
 
 	SimServices * _simServices;
+	const ModuleMaster* _moduleMaster;
 
 	void ControllerHandler();
 	bool TryConnect();
@@ -34,7 +36,8 @@ private:
 	void DispatchHandler();
 
 public:
-	SimController();
+	//ModuleMaster needs to be provided for event and data handling
+	SimController(const ModuleMaster* moduleMaster = nullptr);
 
 	void SearchForServer();
 	void StopSearchForServer();
@@ -42,6 +45,8 @@ public:
 	bool IsConnected() { return _isConnected; }
 
 	const SimServices& GetSimServices() const { return *_simServices; }
+
+	void SetModuleMaster(ModuleMaster* moduleMaster) { _moduleMaster = moduleMaster; }
 
 	~SimController();
 };

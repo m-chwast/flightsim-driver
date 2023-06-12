@@ -17,6 +17,7 @@ public:
 	Program()
 	{
 		moduleMaster = new ModuleMaster(simController.GetSimServices());
+		simController.SetModuleMaster(moduleMaster);
 	}
 
 	void Run();
