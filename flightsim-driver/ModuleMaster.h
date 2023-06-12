@@ -17,4 +17,6 @@ public:
 	// Inherited via ModuleBase
 	virtual void Initialize() override;
 	virtual void Manage() override;
+
+	ModuleHardware* GetModule(unsigned long moduleID) const;
 };

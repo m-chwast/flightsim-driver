@@ -32,3 +32,13 @@ void ModuleMaster::Manage()
         m->Manage();
     }
 }
+
+ModuleHardware* ModuleMaster::GetModule(unsigned long moduleID) const
+{
+    for (ModuleHardware* m : _modules)
+    {
+        if (m->GetID() == moduleID)
+            return m;
+    }
+    return nullptr;
+}
