@@ -146,6 +146,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ConsoleManager.cpp" />
     <ClCompile Include="ControlDevice.cpp" />
+    <ClCompile Include="FlightControlUnit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModuleBase.cpp" />
     <ClCompile Include="ModuleHardware.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ConsoleManager.h" />
     <ClInclude Include="ControlDevice.h" />
+    <ClInclude Include="FlightControlUnit.h" />
     <ClInclude Include="ModuleBase.h" />
     <ClInclude Include="ModuleHardware.h" />
     <ClInclude Include="ModuleMaster.h" />
