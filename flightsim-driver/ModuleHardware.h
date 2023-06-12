@@ -1,13 +1,9 @@
 #pragma once
 #include "ModuleBase.h"
-#include "ControlDevice.h"
-#include <vector>
 
 class ModuleHardware : public ModuleBase
 {
 private:
-	std::vector<ControlDevice> _devices;
-
 	unsigned _id;
 
 public:
@@ -17,6 +13,9 @@ public:
 	}
 
 	unsigned GetID() const { return _id; }
+
+	virtual void ProcessEvent(const SIMCONNECT_RECV_EVENT* data) {};
+	virtual void ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data) {};
 
 	virtual ~ModuleHardware() {}
 };
