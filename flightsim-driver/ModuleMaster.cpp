@@ -13,7 +13,7 @@ ModuleMaster::ModuleMaster(const SimServices& simServices)
 void ModuleMaster::Initialize()
 {
     PrintInitMessage();
-    for (ModuleBase* m : _modules)
+    for (ModuleHardware* m : _modules)
     {
         m->Initialize();
     }
@@ -27,7 +27,7 @@ void ModuleMaster::Manage()
         _initialized = true;
     }
 
-    for (ModuleBase* m : _modules)
+    for (ModuleHardware* m : _modules)
     {
         m->Manage();
     }
