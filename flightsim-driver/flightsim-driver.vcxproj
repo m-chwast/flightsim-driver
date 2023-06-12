@@ -153,6 +153,7 @@
     <ClCompile Include="ModuleMaster.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="SimController.cpp" />
+    <ClCompile Include="SimServices.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="ModuleMaster.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="SimController.h" />
+    <ClInclude Include="SimServices.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

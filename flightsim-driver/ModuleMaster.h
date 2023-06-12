@@ -12,7 +12,7 @@ private:
 	std::vector<ModuleHardware*> _modules;
 
 public:
-	ModuleMaster();
+	ModuleMaster(const SimServices& simServices);
 
 	// Inherited via ModuleBase
 	virtual void Initialize() override;

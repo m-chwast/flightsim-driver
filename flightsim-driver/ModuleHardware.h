@@ -9,6 +9,8 @@ private:
 	std::vector<ControlDevice> _devices;
 
 public:
+	ModuleHardware(const SimServices& simServices) : ModuleBase(simServices) {}
+
 	virtual ~ModuleHardware() {}
 };
 

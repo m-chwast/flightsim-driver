@@ -80,6 +80,7 @@ void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
 
 SimController::SimController()
 {
+    _simServices = new SimServices(_hSimConnect);
     _controllerThread = new std::thread(&SimController::ControllerHandler, this);
 }
 
@@ -132,4 +133,6 @@ SimController::~SimController()
     std::cout << "Controller thread joined\r\n";
     delete _controllerThread;
     _controllerThread = nullptr;
+
+    delete _simServices;
 }

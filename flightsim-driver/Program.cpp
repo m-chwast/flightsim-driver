@@ -11,7 +11,7 @@ void Program::Loop()
 {
 	if (simController.IsConnected() == true)
 	{
-		moduleMaster.Manage();
+		moduleMaster->Manage();
 	}
 	Sleep(1);
 }

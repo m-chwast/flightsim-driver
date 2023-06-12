@@ -63,6 +63,9 @@
     <ClCompile Include="FlightControlUnit.cpp">
       <Filter>Source Files\Module\Hardware</Filter>
     </ClCompile>
+    <ClCompile Include="SimServices.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="FlightControlUnit.h">
       <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="SimServices.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <thread>
 #include "SimConnect.h"
+#include "SimServices.h"
 
 class SimController
 {
@@ -20,6 +21,8 @@ private:
 	std::thread* _searchThread = nullptr;
 	volatile bool _searchActive = false;
 
+	SimServices * _simServices;
+
 	void ControllerHandler();
 	bool TryConnect();
 	void Disconnect();
@@ -34,6 +37,8 @@ public:
 	void StopSearchForServer();
 
 	bool IsConnected() { return _isConnected; }
+
+	const SimServices& GetSimServices() const { return *_simServices; }
 
 	~SimController();
 };

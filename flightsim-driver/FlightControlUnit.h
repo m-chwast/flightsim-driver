@@ -7,7 +7,7 @@ class FlightControlUnit : public ModuleHardware
 private:
 
 public:
-	FlightControlUnit();
+	FlightControlUnit(const SimServices& simServices);
 
 	// Inherited via ModuleHardware
 	virtual void Initialize() override;
