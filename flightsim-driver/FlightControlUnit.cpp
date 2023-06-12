@@ -7,6 +7,11 @@ typedef enum
 	EVENT_AUTO_THROTTLE_ARM_TOGGLE,
 } EventType;
 
+typedef struct
+{
+
+} FCUData;
+
 bool FlightControlUnit::EventsInitialize()
 {
 	bool initOk = true;
@@ -16,6 +21,11 @@ bool FlightControlUnit::EventsInitialize()
 		initOk = false;
 
 	return initOk;
+}
+
+bool FlightControlUnit::DataInitialize()
+{
+	return false;
 }
 
 FlightControlUnit::FlightControlUnit(const SimServices& simServices, unsigned id)

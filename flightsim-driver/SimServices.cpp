@@ -34,3 +34,14 @@ bool SimServices::InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD even
 	std::cout << "Transmitted event. Module: " << moduleID << ", Event: " << eventID << "\r\n";
 	return true;
 }
+
+bool SimServices::SetUpData(unsigned moduleID, const char* dataName, const char* unitsName, SIMCONNECT_DATATYPE dataType) const
+{
+	HRESULT res = SimConnect_AddToDataDefinition(*_hSimConnect, moduleID, dataName, unitsName, dataType);
+	
+	if (res != S_OK)
+	{
+		return false;
+	}
+	return true;
+}

@@ -5,7 +5,10 @@
 class FlightControlUnit : public ModuleHardware
 {
 private:
+	bool _autoThrottleArmed = false;
+
 	bool EventsInitialize();
+	bool DataInitialize();
 public:
 	FlightControlUnit(const SimServices& simServices, unsigned id);
 
