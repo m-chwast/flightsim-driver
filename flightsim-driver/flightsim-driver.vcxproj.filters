@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Module">
       <UniqueIdentifier>{8c47bad0-cad5-4460-a793-77df80875ec5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Module\ControlDevice">
+      <UniqueIdentifier>{e2f6ae9d-e71c-43c1-b542-54a94e0b7832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Module\ControlDevice">
+      <UniqueIdentifier>{b723b73b-2e99-48ef-853b-68591b3efcee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="SimController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleHardware.cpp">
+      <Filter>Source Files\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlDevice.cpp">
+      <Filter>Source Files\Module\ControlDevice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -55,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="SimController.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleHardware.h">
+      <Filter>Header Files\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlDevice.h">
+      <Filter>Header Files\Module\ControlDevice</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -144,15 +144,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleManager.cpp" />
+    <ClCompile Include="ControlDevice.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModuleBase.cpp" />
+    <ClCompile Include="ModuleHardware.cpp" />
     <ClCompile Include="ModuleMaster.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="SimController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleManager.h" />
+    <ClInclude Include="ControlDevice.h" />
     <ClInclude Include="ModuleBase.h" />
+    <ClInclude Include="ModuleHardware.h" />
     <ClInclude Include="ModuleMaster.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="SimController.h" />
