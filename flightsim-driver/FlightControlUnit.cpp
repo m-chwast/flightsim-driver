@@ -41,6 +41,22 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, unsigned id
 	_name = "FCU";
 }
 
+void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
+{
+	std::cout << _name << " Module Data Processing: ";
+	
+	if (data == nullptr)
+	{
+		std::cout << " error!\r\n";
+		return;
+	}
+
+	const FCUData* fcuData = reinterpret_cast<const FCUData*>(&data->dwData);
+
+	std::cout << "A/THR: " << fcuData->autopilotAutothrottleArm << "\r\n";
+	_autoThrottleArmed = fcuData->autopilotAutothrottleArm;
+}
+
 void FlightControlUnit::Manage()
 {
 

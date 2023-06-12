@@ -12,6 +12,8 @@ private:
 public:
 	FlightControlUnit(const SimServices& simServices, unsigned id);
 
+	virtual void ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data) override;
+
 	virtual void Manage() override;
 };
 
