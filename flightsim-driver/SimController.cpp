@@ -16,6 +16,9 @@ void SimController::ControllerHandler()
             _stopSearchFlag = false;
             StopSearch();
         }
+
+        DispatchHandler();
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
@@ -120,6 +123,44 @@ void SimController::StopSearch()
 
     delete _searchThread;
     _searchThread = nullptr;
+}
+
+void SimController::DispatchHandler()
+{
+    SIMCONNECT_RECV* data;
+    DWORD dataSize;
+    HRESULT res = SimConnect_GetNextDispatch(_hSimConnect, &data, &dataSize);
+
+    //no data was received or receive error
+    if (res != S_OK)
+        return;
+
+    //at this point data is valid
+    switch (data->dwID)
+    {
+    case SIMCONNECT_RECV_ID_OPEN:
+    {
+        std::cout << "Received Open data\r\n";
+        break;
+    }
+    case SIMCONNECT_RECV_ID_EVENT:
+    {
+        auto eventData = static_cast<SIMCONNECT_RECV_EVENT*>(data);
+        std::cout << "Received Event. Module: " << eventData->uGroupID;
+        std::cout << ", Event: " << eventData->uEventID << "\r\n";
+        break;
+    }
+    case SIMCONNECT_RECV_ID_SIMOBJECT_DATA:
+    {
+        std::cout << ": Received Simobject data\r\n";
+        break;
+    }
+    default:
+    {
+        std::cout << "Received unhandled data\r\n";
+        break;
+    }
+    }
 }
 
 SimController::~SimController()

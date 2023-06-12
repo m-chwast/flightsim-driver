@@ -30,6 +30,9 @@ private:
 
 	void StartSearch(unsigned period, bool stopSearchAfterFirstConnection = false);
 	void StopSearch();
+
+	void DispatchHandler();
+
 public:
 	SimController();
 
