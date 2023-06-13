@@ -9,6 +9,9 @@ private:
 	virtual bool EventsInitialize() { return false; };
 	virtual bool DataInitialize() { return false; };
 
+protected:
+	int _dataUpdatePeriod = -1;	//-1 -> no update, period is in ms 
+
 public:
 	ModuleHardware(const SimServices& simServices, unsigned id) : ModuleBase(simServices)
 	{
@@ -21,6 +24,7 @@ public:
 	virtual void ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data) {};
 
 	virtual void Initialize() override;
+	virtual void Manage() override;
 
 	virtual ~ModuleHardware() {}
 };

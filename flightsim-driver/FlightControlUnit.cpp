@@ -46,6 +46,7 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, unsigned id
 	: ModuleHardware(simServices, id)
 {
 	_name = "FCU";
+	_dataUpdatePeriod = 250;
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -62,9 +63,4 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 
 	std::cout << "A/THR: " << fcuData->autopilotAutothrottleArm << "\r\n";
 	_autoThrottleArmed = fcuData->autopilotAutothrottleArm;
-}
-
-void FlightControlUnit::Manage()
-{
-
 }
