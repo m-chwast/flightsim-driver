@@ -7,6 +7,8 @@ class FlightControlUnit final : public ModuleHardware
 private:
 	bool _autoThrottleArmed = false;
 
+	void AutoThrottleButtonPressed() const;
+
 	virtual bool EventsInitialize() override;
 	virtual bool DataInitialize() override;
 public:

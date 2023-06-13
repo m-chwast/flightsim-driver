@@ -13,6 +13,13 @@ typedef struct
 } FCUData;
 
 
+void FlightControlUnit::AutoThrottleButtonPressed() const
+{
+	_simServices->InvokeSimEvent(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE);
+	//after data will be received the corresponding variable state will be updated
+	_simServices->RequestData(GetID(), DATA_REQUEST_ID_ACTION);
+}
+
 bool FlightControlUnit::EventsInitialize()
 {
 	bool initOk = true;

@@ -25,3 +25,8 @@ public:
 	virtual ~ModuleHardware() {}
 };
 
+enum DataRequestID
+{
+	DATA_REQUEST_ID_PERIODIC = 0,
+	DATA_REQUEST_ID_ACTION,
+};
