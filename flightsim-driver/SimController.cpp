@@ -128,15 +128,24 @@ void SimController::StopSearch()
 
 void SimController::DispatchHandler()
 {
-    SIMCONNECT_RECV* data;
+    SIMCONNECT_RECV* data = nullptr;
     DWORD dataSize;
-    HRESULT res = SimConnect_GetNextDispatch(_hSimConnect, &data, &dataSize);
+    HRESULT res = SimConnect_GetNextDispatch(_hSimConnect, &data, &dataSize);;
 
-    //no data was received or receive error
-    if (res != S_OK)
-        return;
+    //stop condition: no data was received or receive error
+    while(res == S_OK && data != nullptr && data->dwID != SIMCONNECT_RECV_ID_NULL)
+    {
+        //at this point data is valid
+        DispatchHandlerProcessData(data);
 
-    //at this point data is valid
+        //get new data if available
+        data = nullptr;
+        res = SimConnect_GetNextDispatch(_hSimConnect, &data, &dataSize);        
+    }
+}
+
+void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
+{
     switch (data->dwID)
     {
     case SIMCONNECT_RECV_ID_OPEN:
@@ -146,7 +155,7 @@ void SimController::DispatchHandler()
     }
     case SIMCONNECT_RECV_ID_EVENT:
     {
-        auto eventData = static_cast<SIMCONNECT_RECV_EVENT*>(data);
+        auto eventData = static_cast<const SIMCONNECT_RECV_EVENT*>(data);
         std::cout << "Received Event. Module: " << eventData->uGroupID;
         std::cout << ", Event: " << eventData->uEventID << "\r\n";
         if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
@@ -158,7 +167,7 @@ void SimController::DispatchHandler()
     }
     case SIMCONNECT_RECV_ID_SIMOBJECT_DATA:
     {
-        auto simobjectData = static_cast<SIMCONNECT_RECV_SIMOBJECT_DATA*>(data);
+        auto simobjectData = static_cast<const SIMCONNECT_RECV_SIMOBJECT_DATA*>(data);
         std::cout << ": Received Simobject data\r\n";
         if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
             break;

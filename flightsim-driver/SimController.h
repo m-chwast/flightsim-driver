@@ -34,6 +34,7 @@ private:
 	void StopSearch();
 
 	void DispatchHandler();
+	void DispatchHandlerProcessData(const SIMCONNECT_RECV* data);
 
 public:
 	//ModuleMaster needs to be provided for event and data handling
