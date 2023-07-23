@@ -1,18 +1,23 @@
 #include "ConsoleManager.h"
 #include <iostream>
+#include <thread>
 
-using namespace std;
 
 std::string ConsoleManager::GetCommand()
 {
-	string cmd = "";
-	cin >> cmd;
+	std::string cmd = "";
+	std::cin >> cmd;
 	return cmd;
+}
+
+void ConsoleManager::Writer(const bool& closeRequest)
+{
+
 }
 
 void ConsoleManager::operator()(bool& closeRequest)
 {
-	cout << "Console Manager running\r\n";
+	std::cout << "Console Manager running\r\n";
 
 	while (closeRequest == false)
 	{
@@ -24,9 +29,9 @@ void ConsoleManager::operator()(bool& closeRequest)
 		}
 		else
 		{
-			cout << "Unknown command\r\n";
+			std::cout << "Unknown command\r\n";
 		}
 	}
 
-	cout << "Exiting Console Manager...\r\n";
+	std::cout << "Exiting Console Manager...\r\n";
 }
