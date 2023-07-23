@@ -42,8 +42,8 @@ bool FlightControlUnit::DataInitialize()
 	return initOk;
 }
 
-FlightControlUnit::FlightControlUnit(const SimServices& simServices, unsigned id)
-	: ModuleHardware(simServices, id)
+FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager* console, unsigned id)
+	: ModuleHardware(simServices, console, id)
 {
 	_name = "FCU";
 	_dataUpdatePeriod = 250;

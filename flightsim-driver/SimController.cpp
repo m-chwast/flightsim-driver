@@ -1,5 +1,6 @@
 #include "SimController.h"
 #include <chrono>
+#include <iostream>
 
 void SimController::ControllerHandler()
 {
@@ -192,7 +193,7 @@ SimController::~SimController()
 
     _stopControllerFlag = true;
     _controllerThread->join();
-    _console->Send("Controller thread joined\r\n");
+    std::cout << "Controller thread joined\r\n";
     delete _controllerThread;
     _controllerThread = nullptr;
 

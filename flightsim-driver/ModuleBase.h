@@ -2,18 +2,21 @@
 
 #include <string>
 #include "SimServices.h"
+#include "ConsoleManager.h"
 
 class ModuleBase
 {
 protected:
 	std::string _name = "defaultName";
 	const SimServices * _simServices;
+	ConsoleManager* _console;
 
 	void PrintInitMessage();
 
 public:
-	ModuleBase(const SimServices& simServices)
+	ModuleBase(const SimServices& simServices, ConsoleManager* console)
 	{
+		_console = console;
 		_simServices = &simServices;
 	}
 	

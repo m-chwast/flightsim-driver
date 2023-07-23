@@ -18,7 +18,7 @@ private:
 public:
 	Program()
 	{
-		moduleMaster = new ModuleMaster(simController.GetSimServices());
+		moduleMaster = new ModuleMaster(simController.GetSimServices(), &consoleManager);
 		simController.SetModuleMaster(moduleMaster);
 	}
 
