@@ -169,7 +169,7 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     case SIMCONNECT_RECV_ID_SIMOBJECT_DATA:
     {
         auto simobjectData = static_cast<const SIMCONNECT_RECV_SIMOBJECT_DATA*>(data);
-        _console->Send(": Received Simobject data\r\n");
+        _console->Send("Received Simobject data\r\n");
         if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
             break;
         ModuleHardware* module = _moduleMaster->GetModule(simobjectData->dwDefineID);
