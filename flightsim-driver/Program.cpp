@@ -1,6 +1,6 @@
 #include "Program.h"
 #include <thread>
-#include "ConsoleManager.h"
+
 
 void Program::Initialize()
 {
@@ -19,8 +19,8 @@ void Program::Loop()
 void Program::Run()
 {
 	bool closeRequest = false;
+
 	//start console thread
-	ConsoleManager consoleManager;
 	std::thread consoleThread(&ConsoleManager::Handler, &consoleManager, std::ref(closeRequest));
 
 	Initialize();

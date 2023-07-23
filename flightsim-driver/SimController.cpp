@@ -81,10 +81,11 @@ void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
     }
 }
 
-SimController::SimController(const ModuleMaster* moduleMaster)
+SimController::SimController(ConsoleManager* console, const ModuleMaster* moduleMaster)
 {
     _moduleMaster = moduleMaster;
-    _simServices = new SimServices(&_hSimConnect);
+    _console = console;
+    _simServices = new SimServices(&_hSimConnect, console);
     _controllerThread = new std::thread(&SimController::ControllerHandler, this);
 }
 

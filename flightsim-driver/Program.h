@@ -2,12 +2,14 @@
 
 #include "ModuleMaster.h"
 #include "SimController.h"
+#include "ConsoleManager.h"
 
 class Program final
 {
 private:
 	
-	SimController simController;
+	ConsoleManager consoleManager;
+	SimController simController = SimController(&consoleManager, nullptr);
 	ModuleMaster * moduleMaster;
 
 	void Initialize();

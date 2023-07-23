@@ -2,14 +2,17 @@
 
 #include <windows.h>
 #include "SimConnect.h"
+#include "ConsoleManager.h"
 
 class SimServices
 {
 private:
 	HANDLE* _hSimConnect;
 
+	ConsoleManager* _console = nullptr;
+
 public:
-	SimServices(HANDLE* hSimConnect) : _hSimConnect{ hSimConnect } {}
+	SimServices(HANDLE* hSimConnect, ConsoleManager* console) : _hSimConnect{ hSimConnect }, _console{ console } {}
 
 	bool SetUpSimEvent(unsigned moduleID, unsigned eventID, const char* simEventName) const;
 	bool InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD eventData = 0) const;
