@@ -1,6 +1,5 @@
 #include "SimServices.h"
 #include "SimConnect.h"
-#include <iostream>
 
 bool SimServices::SetUpSimEvent(unsigned moduleID, unsigned eventID, const char* simEventName) const
 {
@@ -27,11 +26,14 @@ bool SimServices::InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD even
 
 	if (res != S_OK)
 	{
-		std::cout << "Error while transmitting event. Module: ";
-		std::cout << moduleID << ", Event: " << eventID << "\r\n";
+		std::string msg = "Error while transmitting event. Module: " + std::to_string(moduleID);
+		msg += ", Event: " + std::to_string(eventID) + "\r\n";
+		_console->Send(msg);
 		return false;
 	}
-	std::cout << "Transmitted event. Module: " << moduleID << ", Event: " << eventID << "\r\n";
+	std::string msg = "Transmitted event. Module: " + std::to_string(moduleID);
+	msg += ", Event: " + std::to_string(eventID) + "\r\n";
+	_console->Send(msg);
 	return true;
 }
 
@@ -53,9 +55,9 @@ bool SimServices::RequestData(unsigned moduleID, int requestID) const
 
 	if (res != S_OK)
 	{
-		std::cout << "Error while requesting data. Module: " << moduleID << "\r\n";
+		_console->Send("Error while requesting data. Module: " + std::to_string(moduleID) + "\r\n");
 		return false;
 	}
-	std::cout << "Requested data. Module: " << moduleID << "\r\n";
+	_console->Send("Requested data. Module: " + std::to_string(moduleID) + "\r\n");
 	return true;
 }

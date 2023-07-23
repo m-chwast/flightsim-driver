@@ -1,5 +1,4 @@
 #include "SimController.h"
-#include <iostream>
 #include <chrono>
 
 void SimController::ControllerHandler()
@@ -25,7 +24,7 @@ void SimController::ControllerHandler()
 
 bool SimController::TryConnect()
 {
-    std::cout << "Connecting...\r\n";
+    _console->Send("Connecting...\r\n");
 
     HRESULT result;
     result = SimConnect_Open(&_hSimConnect, "a320 hardware driver", NULL, 0, 0, 0);
@@ -34,22 +33,22 @@ bool SimController::TryConnect()
 
     if (result != S_OK)
     {
-        std::cout << "Unable to connect.\r\n";
+        _console->Send("Unable to connect.\r\n");
         _hSimConnect = nullptr;
         return false;
     }
 
     _isConnected = true;
-    std::cout << "Connected!\r\n";
+    _console->Send("Connected!\r\n");
     return true;
 }
 
 void SimController::Disconnect()
 {
-    std::cout << "Disconnecting...\r\n";
+    _console->Send("Disconnecting...\r\n");
     if (_hSimConnect == nullptr || _isConnected == false)
     {
-        std::cout << "Already disconnected\r\n";
+        _console->Send("Already disconnected\r\n");
         return;
     }
 
@@ -58,11 +57,11 @@ void SimController::Disconnect()
     
     if (res == S_OK)
     {
-        std::cout << "Disconnected.\r\n";
+        _console->Send("Disconnected.\r\n");
         return;
     }
 
-    std::cout << "Disconnection error\r\n";
+    _console->Send("Disconnection error\r\n");
 }
 
 void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
@@ -105,7 +104,7 @@ void SimController::StartSearch(unsigned period, bool stopSearchAfterFirstConnec
     if (_searchThread != nullptr)
         StopSearch();
 
-    std::cout << "Searching for server...\r\n";
+    _console->Send("Searching for server...\r\n");
     _searchActive = true;
     _searchThread = new std::thread(&SimController::TryConnectPeriodically,
         this, period, stopSearchAfterFirstConnection);
@@ -113,12 +112,12 @@ void SimController::StartSearch(unsigned period, bool stopSearchAfterFirstConnec
 
 void SimController::StopSearch()
 {
-    std::cout << "Stopping the search...\r\n";
+    _console->Send("Stopping the search...\r\n");
     _searchActive = false;
 
     if(_searchThread->joinable())
         _searchThread->join();
-    std::cout << "Search terminated\r\n";
+    _console->Send("Search terminated\r\n");
 
     if (_searchThread == nullptr)
         return;
@@ -151,14 +150,14 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     {
     case SIMCONNECT_RECV_ID_OPEN:
     {
-        std::cout << "Received Open data\r\n";
+        _console->Send("Received Open data\r\n");
         break;
     }
     case SIMCONNECT_RECV_ID_EVENT:
     {
         auto eventData = static_cast<const SIMCONNECT_RECV_EVENT*>(data);
-        std::cout << "Received Event. Module: " << eventData->uGroupID;
-        std::cout << ", Event: " << eventData->uEventID << "\r\n";
+        _console->Send("Received Event. Module: " + std::to_string(eventData->uGroupID));
+        _console->Send(", Event: " + std::to_string(eventData->uEventID) + "\r\n");
         if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
             break;
         ModuleHardware* module = _moduleMaster->GetModule(eventData->uGroupID);
@@ -169,7 +168,7 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     case SIMCONNECT_RECV_ID_SIMOBJECT_DATA:
     {
         auto simobjectData = static_cast<const SIMCONNECT_RECV_SIMOBJECT_DATA*>(data);
-        std::cout << ": Received Simobject data\r\n";
+        _console->Send(": Received Simobject data\r\n");
         if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
             break;
         ModuleHardware* module = _moduleMaster->GetModule(simobjectData->dwDefineID);
@@ -179,7 +178,7 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     }
     default:
     {
-        std::cout << "Received unhandled data\r\n";
+        _console->Send("Received unhandled data\r\n");
         break;
     }
     }
@@ -193,7 +192,7 @@ SimController::~SimController()
 
     _stopControllerFlag = true;
     _controllerThread->join();
-    std::cout << "Controller thread joined\r\n";
+    _console->Send("Controller thread joined\r\n");
     delete _controllerThread;
     _controllerThread = nullptr;
 
