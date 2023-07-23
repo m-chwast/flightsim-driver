@@ -21,7 +21,7 @@ void Program::Run()
 	bool closeRequest = false;
 	//start console thread
 	ConsoleManager consoleManager;
-	std::thread consoleThread(consoleManager, std::ref(closeRequest));
+	std::thread consoleThread(&ConsoleManager::Handler, &consoleManager, std::ref(closeRequest));
 
 	Initialize();
 
