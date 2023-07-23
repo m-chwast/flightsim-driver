@@ -7,7 +7,7 @@ class ConsoleManager
 private:
 	std::string GetCommand();
 
-	void Writer(const bool& closeRequest);
+	void Writer(bool* closeRequest) const;
 
 public:
 	void operator()(bool& closeRequest);
