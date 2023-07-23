@@ -1,6 +1,5 @@
 #include <windows.h>
 #include "FlightControlUnit.h"
-#include <iostream>
 
 typedef enum
 {
@@ -51,16 +50,16 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 {
-	std::cout << _name << " Module Data Processing: ";
+	_console->Send(_name + " Module Data Processing: ");
 	
 	if (data == nullptr)
 	{
-		std::cout << " error!\r\n";
+		_console->Send(" error!\r\n");
 		return;
 	}
 
 	const FCUData* fcuData = reinterpret_cast<const FCUData*>(&data->dwData);
 
-	std::cout << "A/THR: " << fcuData->autopilotAutothrottleArm << "\r\n";
+	_console->Send("A/THR: " + std::to_string(fcuData->autopilotAutothrottleArm) + "\r\n");
 	_autoThrottleArmed = fcuData->autopilotAutothrottleArm;
 }

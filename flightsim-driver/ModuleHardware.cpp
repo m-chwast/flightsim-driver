@@ -1,5 +1,4 @@
 #include "ModuleHardware.h"
-#include <iostream>
 #include <chrono>
 
 void ModuleHardware::Initialize()
@@ -7,10 +6,10 @@ void ModuleHardware::Initialize()
 	PrintInitMessage();
 
 	bool initOk = EventsInitialize();
-	std::cout << _name << " Event setup " << (initOk == true ? "finished" : "failed") << "\r\n";
+	_console->Send(_name + " Event setup " + (initOk == true ? "finished" : "failed") + "\r\n");
 
 	initOk = DataInitialize();
-	std::cout << _name << " Data setup " << (initOk == true ? "finished" : "failed") << "\r\n";
+	_console->Send(_name + " Data setup " + (initOk == true ? "finished" : "failed") + "\r\n");
 }
 
 void ModuleHardware::Manage()
