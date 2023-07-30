@@ -4,6 +4,8 @@
 typedef enum
 {
 	EVENT_AUTO_THROTTLE_ARM_TOGGLE,
+	EVENT_AUTOPILOT_AP1_PUSH,
+	EVENT_AUTOPILOT_AP2_PUSH,
 } EventType;
 
 typedef struct
@@ -27,6 +29,14 @@ bool FlightControlUnit::EventsInitialize()
 	if (tmpOk != true)
 		initOk = false;
 
+	tmpOk = _simServices->SetUpSimEvent(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH");
+	if (tmpOk != true)
+		initOk = false;
+
+	tmpOk = _simServices->SetUpSimEvent(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH");
+	if (tmpOk != true)
+		initOk = false;
+
 	return initOk;
 }
 
@@ -45,7 +55,7 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 	: ModuleHardware(simServices, console, id)
 {
 	_name = "FCU";
-	_dataUpdatePeriod = 250;
+	_dataUpdatePeriod = 1000;
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -61,5 +71,6 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	const FCUData* fcuData = reinterpret_cast<const FCUData*>(&data->dwData);
 
 	_console->Send("A/THR: " + std::to_string(fcuData->autopilotAutothrottleArm) + "\r\n");
+	
 	_autoThrottleArmed = fcuData->autopilotAutothrottleArm;
 }
