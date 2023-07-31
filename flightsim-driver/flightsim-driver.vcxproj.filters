@@ -83,5 +83,8 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files\Module\Hardware</Filter>
     </ClInclude>
+    <ClInclude Include="StableButton.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
