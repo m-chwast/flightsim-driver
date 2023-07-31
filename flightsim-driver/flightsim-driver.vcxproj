@@ -154,6 +154,7 @@
     <ClCompile Include="SimServices.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ConsoleManager.h" />
     <ClInclude Include="FlightControlUnit.h" />
     <ClInclude Include="ModuleBase.h" />

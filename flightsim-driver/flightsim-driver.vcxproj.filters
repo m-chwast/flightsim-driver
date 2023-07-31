@@ -80,5 +80,8 @@
     <ClInclude Include="SimServices.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
