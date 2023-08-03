@@ -36,7 +36,8 @@ bool FlightControlUnit::EventsInitialize()
 bool FlightControlUnit::DataInitialize()
 {
 	bool initOk = true;
-
+	
+	//data must be initialized manually to provide better control on sequence
 	bool tmpOk = _simServices->SetUpData(GetID(), "AUTOPILOT THROTTLE ARM", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	if (tmpOk != true)
 		initOk = false;
