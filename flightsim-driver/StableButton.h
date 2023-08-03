@@ -1,7 +1,7 @@
 #pragma once
 #include "Button.h"
 
-class StableButton : Button
+class StableButton : public Button
 {
 private:
 	bool _isActive = false;

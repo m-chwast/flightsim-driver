@@ -14,18 +14,11 @@ typedef struct
 } FCUData;
 
 
-void FlightControlUnit::AutoThrottleButtonPressed() const
-{
-	_simServices->InvokeSimEvent(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE);
-	//after data will be received the corresponding variable state will be updated
-	_simServices->RequestData(GetID(), DATA_REQUEST_ID_ACTION);
-}
-
 bool FlightControlUnit::EventsInitialize()
 {
 	bool initOk = true;
 	
-	bool tmpOk = _simServices->SetUpSimEvent(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTO_THROTTLE_ARM");
+	bool tmpOk = _autoThrottleButton->EventSetup();
 	if (tmpOk != true)
 		initOk = false;
 
@@ -57,7 +50,7 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 	_name = "FCU";
 	_dataUpdatePeriod = 1000;
 
-	_autoThrottleButton = new StableButton(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTOPILOT THROTTLE ARM", DATA_REQUEST_ID_ACTION, &simServices, console);
+	_autoThrottleButton = new StableButton(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTO_THROTTLE_ARM", DATA_REQUEST_ID_ACTION, &simServices, console);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -72,9 +65,9 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 
 	const FCUData* fcuData = reinterpret_cast<const FCUData*>(&data->dwData);
 
-	_console->Send("A/THR: " + std::to_string(fcuData->autopilotAutothrottleArm) + "\r\n");
-	
-	_autoThrottleArmed = fcuData->autopilotAutothrottleArm;
+	_autoThrottleButton->SetState(fcuData->autopilotAutothrottleArm);
+
+	_console->Send("A/THR: " + std::to_string(_autoThrottleButton->IsActive()) + "\r\n");
 }
 
 FlightControlUnit::~FlightControlUnit()

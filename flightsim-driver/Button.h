@@ -9,7 +9,7 @@ class Button
 private:
 	const unsigned _moduleID;
 	const unsigned _eventID;
-	const char* _eventName;
+	const char* const _eventName;
 	const unsigned _dataRequestID;
 
 	const SimServices* const _simServices;
@@ -35,5 +35,11 @@ public:
 			msg += ", Event " + std::to_string(_eventID) + ": Press failed\r\n";
 			_console->Send(msg);
 		}
+	}
+
+	virtual bool EventSetup() const 
+	{
+		bool setupOk = _simServices->SetUpSimEvent(_moduleID, _eventID, _eventName);
+		return setupOk;
 	}
 };
