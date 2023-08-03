@@ -17,6 +17,8 @@ typedef struct
 	int32_t autopilot1Active;
 	int32_t autopilot2Active;
 	int32_t expediteMode;
+	int32_t locModeActive;
+	int32_t apprModeActive;
 } FCUData;
 
 
@@ -52,6 +54,14 @@ bool FlightControlUnit::DataInitialize()
 		initOk = false;
 
 	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	if (tmpOk != true)
+		initOk = false;
+
+	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_FCU_LOC_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	if (tmpOk != true)
+		initOk = false;
+
+	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_FCU_APPR_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	if (tmpOk != true)
 		initOk = false;
 
@@ -102,11 +112,15 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_autopilot1Button->SetState(fcuData->autopilot1Active);
 	_autopilot2Button->SetState(fcuData->autopilot2Active);
 	_expediteButton->SetState(fcuData->expediteMode);
+	_locButton->SetState(fcuData->locModeActive);
+	_apprButton->SetState(fcuData->apprModeActive);
 
 	_console->Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
 	_console->Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
 	_console->Send("AP2: " + std::to_string(_autopilot2Button->IsActive()) + "\r\n");
 	_console->Send("EXPED: " + std::to_string(_expediteButton->IsActive()) + "\r\n");
+	_console->Send("LOC: " + std::to_string(_locButton->IsActive()) + "\r\n");
+	_console->Send("APPR: " + std::to_string(_apprButton->IsActive()) + "\r\n");
 	_console->Send("\r\n");
 }
 
