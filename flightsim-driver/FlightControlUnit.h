@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ModuleHardware.h"
+#include "StableButton.h"
 
 class FlightControlUnit final : public ModuleHardware
 {
