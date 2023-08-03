@@ -11,6 +11,8 @@ typedef enum
 typedef struct
 {
 	int32_t autopilotAutothrottleArm;
+	int32_t autopilot1Active;
+	int32_t autopilot2Active;
 } FCUData;
 
 
@@ -34,6 +36,14 @@ bool FlightControlUnit::DataInitialize()
 	
 	//data must be initialized manually to provide better control on sequence
 	bool tmpOk = _simServices->SetUpData(GetID(), "AUTOPILOT THROTTLE ARM", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	if (tmpOk != true)
+		initOk = false;
+
+	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_1_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	if (tmpOk != true)
+		initOk = false;
+
+	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	if (tmpOk != true)
 		initOk = false;
 
@@ -71,8 +81,13 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	const FCUData* fcuData = reinterpret_cast<const FCUData*>(&data->dwData);
 
 	_autoThrottleButton->SetState(fcuData->autopilotAutothrottleArm);
+	_autoPilot1Button->SetState(fcuData->autopilot1Active);
+	_autoPilot2Button->SetState(fcuData->autopilot2Active);
 
 	_console->Send("A/THR: " + std::to_string(_autoThrottleButton->IsActive()) + "\r\n");
+	_console->Send("AP1: " + std::to_string(_autoPilot1Button->IsActive()) + "\r\n");
+	_console->Send("AP2: " + std::to_string(_autoPilot2Button->IsActive()) + "\r\n");
+	_console->Send("\r\n");
 }
 
 FlightControlUnit::~FlightControlUnit()
