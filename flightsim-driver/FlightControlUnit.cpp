@@ -18,17 +18,12 @@ bool FlightControlUnit::EventsInitialize()
 {
 	bool initOk = true;
 	
-	bool tmpOk = _autoThrottleButton->EventSetup();
-	if (tmpOk != true)
-		initOk = false;
-
-	tmpOk = _autoPilot1Button->EventSetup();
-	if (tmpOk != true)
-		initOk = false;
-
-	tmpOk = _autoPilot2Button->EventSetup();
-	if (tmpOk != true)
-		initOk = false;
+	for(const Button * b : _buttons)
+	{
+		bool eventSetupOk = b->EventSetup();
+		if (eventSetupOk == false)
+			initOk = false;
+	}
 
 	return initOk;
 }
