@@ -3,7 +3,7 @@
 
 typedef enum
 {
-	EVENT_AUTO_THROTTLE_ARM_TOGGLE,
+	EVENT_AUTOTHRUST_PUSH,
 	EVENT_AUTOPILOT_AP1_PUSH,
 	EVENT_AUTOPILOT_AP2_PUSH,
 } EventType;
@@ -35,7 +35,7 @@ bool FlightControlUnit::DataInitialize()
 	bool initOk = true;
 	
 	//data must be initialized manually to provide better control on sequence
-	bool tmpOk = _simServices->SetUpData(GetID(), "AUTOPILOT THROTTLE ARM", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	bool tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "number", SIMCONNECT_DATATYPE_INT32);
 	if (tmpOk != true)
 		initOk = false;
 
@@ -58,7 +58,8 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 	constexpr unsigned dataRequestID = DATA_REQUEST_ID_ACTION;
 
-	_autothrustButton = new StableButton(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTO_THROTTLE_ARM", DATA_REQUEST_ID_ACTION, &simServices, console);
+	/* "A32NX.FCU_ATHR_PUSH" event seems not to work, auto_throttle_arm works well though */
+	_autothrustButton = new StableButton(GetID(), EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM", dataRequestID, &simServices, console);
 	_buttons.push_back(_autothrustButton);
 
 	_autopilot1Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH", dataRequestID, &simServices, console);
