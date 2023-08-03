@@ -24,7 +24,7 @@ public:
 			throw std::exception("simServices and console can't be null!");
 	}
 
-	virtual void Press() const
+	virtual bool Press() const
 	{
 		bool eventOk = _simServices->InvokeSimEvent(_moduleID, _eventID);
 		bool dataRequestOk = _simServices->RequestData(_moduleID, _dataRequestID);
@@ -34,7 +34,9 @@ public:
 			std::string msg = "ERROR: Module " + std::to_string(_moduleID);
 			msg += ", Event " + std::to_string(_eventID) + ": Press failed\r\n";
 			_console->Send(msg);
+			return false;
 		}
+		return true;
 	}
 
 	virtual bool EventSetup() const 
