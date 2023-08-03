@@ -2,6 +2,7 @@
 
 #include "ModuleHardware.h"
 #include "StableButton.h"
+#include <vector>
 
 class FlightControlUnit final : public ModuleHardware
 {
@@ -9,6 +10,8 @@ private:
 	StableButton* _autoThrottleButton;
 	StableButton* _autoPilot1Button;
 	StableButton* _autoPilot2Button;
+
+	std::vector<const Button*> _buttons;
 
 	virtual bool EventsInitialize() override;
 	virtual bool DataInitialize() override;
