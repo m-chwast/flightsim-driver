@@ -22,11 +22,11 @@ bool FlightControlUnit::EventsInitialize()
 	if (tmpOk != true)
 		initOk = false;
 
-	tmpOk = _simServices->SetUpSimEvent(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH");
+	tmpOk = _autoPilot1Button->EventSetup();
 	if (tmpOk != true)
 		initOk = false;
 
-	tmpOk = _simServices->SetUpSimEvent(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH");
+	tmpOk = _autoPilot2Button->EventSetup();
 	if (tmpOk != true)
 		initOk = false;
 
@@ -51,7 +51,11 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 	_name = "FCU";
 	_dataUpdatePeriod = 1000;
 
+	constexpr unsigned dataRequestID = DATA_REQUEST_ID_ACTION;
+
 	_autoThrottleButton = new StableButton(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTO_THROTTLE_ARM", DATA_REQUEST_ID_ACTION, &simServices, console);
+	_autoPilot1Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH", dataRequestID, &simServices, console);
+	_autoPilot2Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH", dataRequestID, &simServices, console);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -74,4 +78,6 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 FlightControlUnit::~FlightControlUnit()
 {
 	delete _autoThrottleButton;
+	delete _autoPilot1Button;
+	delete _autoPilot2Button;
 }
