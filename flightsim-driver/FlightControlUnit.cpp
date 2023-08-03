@@ -8,6 +8,7 @@ typedef enum
 	EVENT_AUTOPILOT_AP2_PUSH,
 	EVENT_EXPEDITE_PUSH,
 	EVENT_LOC_PUSH,
+	EVENT_APPR_PUSH,
 } EventType;
 
 typedef struct
@@ -80,6 +81,9 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 	_locButton = new StableButton(GetID(), EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH", dataRequestID, &simServices, console);
 	_buttons.push_back(_locButton);
+
+	_apprButton = new StableButton(GetID(), EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH", dataRequestID, &simServices, console);
+	_buttons.push_back(_apprButton);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -113,4 +117,5 @@ FlightControlUnit::~FlightControlUnit()
 	delete _autopilot2Button;
 	delete _expediteButton;
 	delete _locButton;
+	delete _apprButton;
 }
