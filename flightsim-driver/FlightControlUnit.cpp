@@ -58,14 +58,14 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 	constexpr unsigned dataRequestID = DATA_REQUEST_ID_ACTION;
 
-	_autoThrottleButton = new StableButton(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTO_THROTTLE_ARM", DATA_REQUEST_ID_ACTION, &simServices, console);
-	_buttons.push_back(_autoThrottleButton);
+	_autothrustButton = new StableButton(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTO_THROTTLE_ARM", DATA_REQUEST_ID_ACTION, &simServices, console);
+	_buttons.push_back(_autothrustButton);
 
-	_autoPilot1Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH", dataRequestID, &simServices, console);
-	_buttons.push_back(_autoPilot1Button);
+	_autopilot1Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH", dataRequestID, &simServices, console);
+	_buttons.push_back(_autopilot1Button);
 
-	_autoPilot2Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH", dataRequestID, &simServices, console);
-	_buttons.push_back(_autoPilot2Button);
+	_autopilot2Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH", dataRequestID, &simServices, console);
+	_buttons.push_back(_autopilot2Button);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -80,19 +80,19 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 
 	const FCUData* fcuData = reinterpret_cast<const FCUData*>(&data->dwData);
 
-	_autoThrottleButton->SetState(fcuData->autopilotAutothrottleArm);
-	_autoPilot1Button->SetState(fcuData->autopilot1Active);
-	_autoPilot2Button->SetState(fcuData->autopilot2Active);
+	_autothrustButton->SetState(fcuData->autopilotAutothrottleArm);
+	_autopilot1Button->SetState(fcuData->autopilot1Active);
+	_autopilot2Button->SetState(fcuData->autopilot2Active);
 
-	_console->Send("A/THR: " + std::to_string(_autoThrottleButton->IsActive()) + "\r\n");
-	_console->Send("AP1: " + std::to_string(_autoPilot1Button->IsActive()) + "\r\n");
-	_console->Send("AP2: " + std::to_string(_autoPilot2Button->IsActive()) + "\r\n");
+	_console->Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
+	_console->Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
+	_console->Send("AP2: " + std::to_string(_autopilot2Button->IsActive()) + "\r\n");
 	_console->Send("\r\n");
 }
 
 FlightControlUnit::~FlightControlUnit()
 {
-	delete _autoThrottleButton;
-	delete _autoPilot1Button;
-	delete _autoPilot2Button;
+	delete _autothrustButton;
+	delete _autopilot1Button;
+	delete _autopilot2Button;
 }

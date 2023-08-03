@@ -7,9 +7,9 @@
 class FlightControlUnit final : public ModuleHardware
 {
 private:
-	StableButton* _autoThrottleButton;
-	StableButton* _autoPilot1Button;
-	StableButton* _autoPilot2Button;
+	StableButton* _autothrustButton;
+	StableButton* _autopilot1Button;
+	StableButton* _autopilot2Button;
 
 	std::vector<const Button*> _buttons;
 
