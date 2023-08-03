@@ -14,6 +14,7 @@ typedef struct
 	int32_t autopilotAutothrottleArm;
 	int32_t autopilot1Active;
 	int32_t autopilot2Active;
+	int32_t expediteMode;
 } FCUData;
 
 
@@ -45,6 +46,10 @@ bool FlightControlUnit::DataInitialize()
 		initOk = false;
 
 	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	if (tmpOk != true)
+		initOk = false;
+
+	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	if (tmpOk != true)
 		initOk = false;
 
@@ -88,10 +93,12 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_autothrustButton->SetState(fcuData->autopilotAutothrottleArm);
 	_autopilot1Button->SetState(fcuData->autopilot1Active);
 	_autopilot2Button->SetState(fcuData->autopilot2Active);
+	_expediteButton->SetState(fcuData->expediteMode);
 
 	_console->Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
 	_console->Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
 	_console->Send("AP2: " + std::to_string(_autopilot2Button->IsActive()) + "\r\n");
+	_console->Send("EXPED: " + std::to_string(_expediteButton->IsActive()) + "\r\n");
 	_console->Send("\r\n");
 }
 
@@ -100,4 +107,5 @@ FlightControlUnit::~FlightControlUnit()
 	delete _autothrustButton;
 	delete _autopilot1Button;
 	delete _autopilot2Button;
+	delete _expediteButton;
 }
