@@ -11,6 +11,7 @@ private:
 	StableButton* _autopilot1Button;
 	StableButton* _autopilot2Button;
 	StableButton* _expediteButton;
+	StableButton* _locButton;
 
 	std::vector<const Button*> _buttons;
 
