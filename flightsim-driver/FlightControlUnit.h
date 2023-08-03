@@ -6,8 +6,8 @@
 class FlightControlUnit final : public ModuleHardware
 {
 private:
-	bool _autoThrottleArmed = false;
-
+	StableButton* _autoThrottleButton;
+	
 	void AutoThrottleButtonPressed() const;
 
 	virtual bool EventsInitialize() override;
@@ -17,5 +17,6 @@ public:
 
 	virtual void ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data) override;
 
+	~FlightControlUnit();
 };
 

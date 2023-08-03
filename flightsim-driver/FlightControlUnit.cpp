@@ -56,6 +56,8 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 {
 	_name = "FCU";
 	_dataUpdatePeriod = 1000;
+
+	_autoThrottleButton = new StableButton(GetID(), EVENT_AUTO_THROTTLE_ARM_TOGGLE, "AUTOPILOT THROTTLE ARM", DATA_REQUEST_ID_ACTION, &simServices, console);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -73,4 +75,9 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_console->Send("A/THR: " + std::to_string(fcuData->autopilotAutothrottleArm) + "\r\n");
 	
 	_autoThrottleArmed = fcuData->autopilotAutothrottleArm;
+}
+
+FlightControlUnit::~FlightControlUnit()
+{
+	delete _autoThrottleButton;
 }
