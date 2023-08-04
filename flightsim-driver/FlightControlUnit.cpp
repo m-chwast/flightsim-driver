@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "FlightControlUnit.h"
+#include <type_traits>
 
 typedef enum
 {
@@ -13,14 +14,18 @@ typedef enum
 
 typedef struct
 {
-	int32_t autopilotAutothrottleArm;
-	int32_t autopilot1Active;
-	int32_t autopilot2Active;
-	int32_t expediteMode;
-	int32_t locModeActive;
-	int32_t apprModeActive;
+	struct LightedButtons
+	{
+		int32_t autopilotAutothrottleArm;
+		int32_t autopilot1Active;
+		int32_t autopilot2Active;
+		int32_t expediteMode;
+		int32_t locModeActive;
+		int32_t apprModeActive;
+	} lightedButtons;
 } FCUData;
 
+static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
 
 bool FlightControlUnit::EventsInitialize()
 {
@@ -103,12 +108,12 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 
 	const FCUData* fcuData = reinterpret_cast<const FCUData*>(&data->dwData);
 
-	_autothrustButton->SetState(fcuData->autopilotAutothrottleArm);
-	_autopilot1Button->SetState(fcuData->autopilot1Active);
-	_autopilot2Button->SetState(fcuData->autopilot2Active);
-	_expediteButton->SetState(fcuData->expediteMode);
-	_locButton->SetState(fcuData->locModeActive);
-	_apprButton->SetState(fcuData->apprModeActive);
+	_autothrustButton->SetState(fcuData->lightedButtons.autopilotAutothrottleArm);
+	_autopilot1Button->SetState(fcuData->lightedButtons.autopilot1Active);
+	_autopilot2Button->SetState(fcuData->lightedButtons.autopilot2Active);
+	_expediteButton->SetState(fcuData->lightedButtons.expediteMode);
+	_locButton->SetState(fcuData->lightedButtons.locModeActive);
+	_apprButton->SetState(fcuData->lightedButtons.apprModeActive);
 
 	_console->Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
 	_console->Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
