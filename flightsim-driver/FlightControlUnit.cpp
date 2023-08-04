@@ -10,6 +10,8 @@ typedef enum
 	EVENT_EXPEDITE_PUSH,
 	EVENT_LOC_PUSH,
 	EVENT_APPR_PUSH,
+	EVENT_SPD_MACH_TOGGLE_PUSH,
+	EVENT_TRK_FPA_TOGGLE_PUSH,
 } EventType;
 
 typedef struct
@@ -105,6 +107,12 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 	_apprButton = new StableButton(GetID(), EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH", dataRequestID, &simServices, console);
 	_buttons.push_back(_apprButton);
+
+	_spdMachButton = new StableButton(GetID(), EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH", dataRequestID, &simServices, console);
+	_buttons.push_back(_spdMachButton);
+
+	_trkFpaButton = new StableButton(GetID(), EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH", dataRequestID, &simServices, console);
+	_buttons.push_back(_trkFpaButton);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -125,6 +133,8 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_expediteButton->SetState(fcuData->lightedButtons.expediteMode);
 	_locButton->SetState(fcuData->lightedButtons.locModeActive);
 	_apprButton->SetState(fcuData->lightedButtons.apprModeActive);
+	_spdMachButton->SetState(fcuData->unlightedButtons.spdMach);
+	_trkFpaButton->SetState(fcuData->unlightedButtons.trkFpa);
 
 	_console->Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
 	_console->Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
@@ -132,6 +142,8 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_console->Send("EXPED: " + std::to_string(_expediteButton->IsActive()) + "\r\n");
 	_console->Send("LOC: " + std::to_string(_locButton->IsActive()) + "\r\n");
 	_console->Send("APPR: " + std::to_string(_apprButton->IsActive()) + "\r\n");
+	_console->Send("SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "\r\n");
+	_console->Send("TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "\r\n");
 	_console->Send("\r\n");
 }
 
@@ -143,4 +155,6 @@ FlightControlUnit::~FlightControlUnit()
 	delete _expediteButton;
 	delete _locButton;
 	delete _apprButton;
+	delete _spdMachButton;
+	delete _trkFpaButton;
 }

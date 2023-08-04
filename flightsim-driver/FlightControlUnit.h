@@ -13,6 +13,8 @@ private:
 	StableButton* _expediteButton;
 	StableButton* _locButton;
 	StableButton* _apprButton;
+	StableButton* _spdMachButton;
+	StableButton* _trkFpaButton;
 
 	std::vector<const Button*> _buttons;
 
