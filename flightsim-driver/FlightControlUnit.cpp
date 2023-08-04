@@ -23,6 +23,11 @@ typedef struct
 		int32_t locModeActive;
 		int32_t apprModeActive;
 	} lightedButtons;
+	struct UnlightedButtons
+	{
+		int32_t spdMach;
+		int32_t trkFpa;
+	} unlightedButtons;
 } FCUData;
 
 static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
@@ -63,6 +68,12 @@ bool FlightControlUnit::DataInitialize()
 		initOk = false;
 
 	if (_simServices->SetUpData(GetID(), "L:A32NX_FCU_APPR_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+		initOk = false;
+
+	if (_simServices->SetUpData(GetID(), "AUTOPILOT MANAGED SPEED IN MACH", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+		initOk = false;
+
+	if (_simServices->SetUpData(GetID(), "L:A32NX_TRK_FPA_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
 	return initOk;
