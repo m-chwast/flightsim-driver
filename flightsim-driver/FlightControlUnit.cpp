@@ -41,28 +41,23 @@ bool FlightControlUnit::DataInitialize()
 	bool initOk = true;
 	
 	//data must be initialized manually to provide better control on sequence
-	bool tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "number", SIMCONNECT_DATATYPE_INT32);
-	if (tmpOk != true)
+
+	if (_simServices->SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "number", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_1_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
-	if (tmpOk != true)
+	if (_simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_1_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
-	if (tmpOk != true)
+	if (_simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32);
-	if (tmpOk != true)
+	if (_simServices->SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_FCU_LOC_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
-	if (tmpOk != true)
+	if (_simServices->SetUpData(GetID(), "L:A32NX_FCU_LOC_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	tmpOk = _simServices->SetUpData(GetID(), "L:A32NX_FCU_APPR_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
-	if (tmpOk != true)
+	if (_simServices->SetUpData(GetID(), "L:A32NX_FCU_APPR_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
 	return initOk;
