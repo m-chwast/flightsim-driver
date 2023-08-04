@@ -37,6 +37,12 @@ bool SimServices::InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD even
 	return true;
 }
 
+bool SimServices::SetModuleEventsPriority(unsigned moduleID, DWORD priority) const
+{
+	HRESULT res = SimConnect_SetNotificationGroupPriority(*_hSimConnect, moduleID, priority);
+	return res == S_OK;
+}
+
 bool SimServices::SetUpData(unsigned moduleID, const char* dataName, const char* unitsName, SIMCONNECT_DATATYPE dataType) const
 {
 	HRESULT res = SimConnect_AddToDataDefinition(*_hSimConnect, moduleID, dataName, unitsName, dataType);

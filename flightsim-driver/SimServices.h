@@ -16,6 +16,7 @@ public:
 
 	bool SetUpSimEvent(unsigned moduleID, unsigned eventID, const char* simEventName) const;
 	bool InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD eventData = 0) const;
+	bool SetModuleEventsPriority(unsigned moduleID, DWORD priority) const;
 
 	bool SetUpData(unsigned moduleID, const char* dataName, const char* unitsName, 
 		SIMCONNECT_DATATYPE dataType = SIMCONNECT_DATATYPE_FLOAT64) const;
