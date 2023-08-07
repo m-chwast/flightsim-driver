@@ -152,6 +152,11 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_console->Send("\r\n");
 }
 
+void FlightControlUnit::ProcessEvent(const SIMCONNECT_RECV_EVENT* event)
+{
+	
+}
+
 FlightControlUnit::~FlightControlUnit()
 {
 	delete _autothrustButton;
