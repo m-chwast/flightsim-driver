@@ -29,6 +29,7 @@ typedef struct
 	{
 		int32_t spdMach;
 		int32_t trkFpa;
+		int32_t metricAlt;
 	} unlightedButtons;
 } FCUData;
 
@@ -76,6 +77,9 @@ bool FlightControlUnit::DataInitialize()
 		initOk = false;
 
 	if (_simServices->SetUpData(GetID(), "L:A32NX_TRK_FPA_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+		initOk = false;
+
+	if (_simServices->SetUpData(GetID(), "L:A32NX_METRIC_ALT_TOGGLE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
 	return initOk;
@@ -144,6 +148,7 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_console->Send("APPR: " + std::to_string(_apprButton->IsActive()) + "\r\n");
 	_console->Send("SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "\r\n");
 	_console->Send("TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "\r\n");
+	_console->Send("Metric Alt: " + std::to_string(fcuData->unlightedButtons.metricAlt) + "\r\n");
 	_console->Send("\r\n");
 }
 
