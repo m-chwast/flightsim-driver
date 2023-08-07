@@ -177,6 +177,11 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
             module->ProcessData(simobjectData);
         break;
     }
+    case SIMCONNECT_RECV_ID_EXCEPTION: 
+    {
+        _console->Send("Received Exception!\r\n");
+        break;
+    }
     default:
     {
         _console->Send("Received unhandled data\r\n");
