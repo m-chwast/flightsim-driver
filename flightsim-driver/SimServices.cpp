@@ -67,3 +67,23 @@ bool SimServices::RequestData(unsigned moduleID, int requestID) const
 	_console->Send("Requested data. Module: " + std::to_string(moduleID) + "\r\n");
 	return true;
 }
+
+bool SimServices::SetData(unsigned moduleID, unsigned elemCount, unsigned elemSize, void* data) const
+{
+	if (elemCount < 1)
+	{
+		_console->Send("Zero elements to be sent. Not sending anything\r\n");
+		return false;
+	}
+
+	HRESULT res = SimConnect_SetDataOnSimObject(*_hSimConnect, moduleID, SIMCONNECT_OBJECT_ID_USER, NULL, elemCount, elemSize, data);
+
+	if (res != S_OK)
+	{
+		_console->Send("Error while setting data. Module: " + std::to_string(moduleID) + "\r\n");
+		return false;
+	}
+	_console->Send("Data sent. Module: " + std::to_string(moduleID) + "\r\n");
+	return true;
+
+}
