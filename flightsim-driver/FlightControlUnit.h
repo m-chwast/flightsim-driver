@@ -2,6 +2,7 @@
 
 #include "ModuleHardware.h"
 #include "StableButton.h"
+#include "StableDataDrivenButton.h"
 #include <vector>
 
 class FlightControlUnit final : public ModuleHardware
@@ -15,6 +16,7 @@ private:
 	StableButton* _apprButton;
 	StableButton* _spdMachButton;
 	StableButton* _trkFpaButton;
+	StableDataDrivenButton* _metricAltButton;
 
 	std::vector<const Button*> _buttons;
 

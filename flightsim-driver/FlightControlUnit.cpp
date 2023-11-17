@@ -117,6 +117,9 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 	_trkFpaButton = new StableButton(GetID(), EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH", dataRequestID, &simServices, console);
 	_buttons.push_back(_trkFpaButton);
+
+	_metricAltButton = new StableDataDrivenButton(GetID(), (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE", dataRequestID, &simServices, console);
+	_buttons.push_back(_metricAltButton);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
@@ -139,6 +142,7 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_apprButton->SetState(fcuData->lightedButtons.apprModeActive);
 	_spdMachButton->SetState(fcuData->unlightedButtons.spdMach);
 	_trkFpaButton->SetState(fcuData->unlightedButtons.trkFpa);
+	_metricAltButton->SetState(fcuData->unlightedButtons.metricAlt);
 
 	_console->Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
 	_console->Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
@@ -148,13 +152,13 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_console->Send("APPR: " + std::to_string(_apprButton->IsActive()) + "\r\n");
 	_console->Send("SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "\r\n");
 	_console->Send("TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "\r\n");
-	_console->Send("Metric Alt: " + std::to_string(fcuData->unlightedButtons.metricAlt) + "\r\n");
+	_console->Send("Metric Alt: " + std::to_string(_metricAltButton->IsActive()) + "\r\n");
 	_console->Send("\r\n");
 }
 
 void FlightControlUnit::ProcessEvent(const SIMCONNECT_RECV_EVENT* event)
 {
-	
+
 }
 
 FlightControlUnit::~FlightControlUnit()
