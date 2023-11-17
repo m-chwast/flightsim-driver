@@ -7,12 +7,13 @@
 class Button
 {
 private:
-	const unsigned _moduleID;
 	const unsigned _eventID;
 	const char* const _eventName;
+	
+protected:
+	const unsigned _moduleID;
 	const unsigned _dataRequestID;
 
-protected:
 	const SimServices* const _simServices;
 	ConsoleManager* const _console;
 
