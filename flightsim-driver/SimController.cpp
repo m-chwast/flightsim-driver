@@ -179,7 +179,8 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     }
     case SIMCONNECT_RECV_ID_EXCEPTION: 
     {
-        _console->Send("Received Exception!\r\n");
+        auto simobjectData = static_cast<const SIMCONNECT_RECV_EXCEPTION*>(data);
+        _console->Send("Received Exception! dwException: " + std::to_string(simobjectData->dwException) + "\r\n");
         break;
     }
     default:
