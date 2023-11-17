@@ -12,6 +12,7 @@ private:
 	const char* const _eventName;
 	const unsigned _dataRequestID;
 
+protected:
 	const SimServices* const _simServices;
 	ConsoleManager* const _console;
 
