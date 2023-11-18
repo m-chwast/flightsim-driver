@@ -1,10 +1,9 @@
 #pragma once
-
 #include "ModuleHardware.h"
 #include "StableButton.h"
 #include "StableDataDrivenButton.h"
 #include "PushPullEncoder.h"
-#include <vector>
+
 
 class FlightControlUnit final : public ModuleHardware
 {
@@ -19,14 +18,10 @@ private:
 	StableButton* _trkFpaButton;
 	StableDataDrivenButton* _metricAltButton;
 
-	std::vector<const Button*> _buttons;
-
 	PushPullEncoder* _spdEncoder;
 	PushPullEncoder* _hdgEncoder;
 	PushPullEncoder* _altEncoder;
 	PushPullEncoder* _vspdEncoder;
-
-	std::vector<const Encoder*> _encoders;
 
 	virtual bool DataInitialize() override;
 
