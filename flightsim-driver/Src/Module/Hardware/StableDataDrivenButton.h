@@ -14,10 +14,10 @@ public:
 		_dataName{dataName}, _buttonDataRequestID{buttonDataRequestID}
 	{}
 
-	virtual bool Press() const override
+	virtual bool Press(unsigned long valueToSend = 0) const override
 	{
 		//set lvar to oppposite of stored value
-		int32_t newValue = !IsActive();
+		int32_t newValue = valueToSend;
 		bool dataSetOk = _simServices.SetData(_buttonDataRequestID, 1, sizeof(int32_t), reinterpret_cast<void*>(&newValue));
 		bool dataRequestOk = _simServices.RequestData(_moduleID, _dataRequestID);
 

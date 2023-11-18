@@ -17,9 +17,9 @@ public:
 		: HardwareElementBase(base), _event{ pushEvent }
 	{}
 
-	virtual bool Press() const
+	virtual bool Press(unsigned long valueToSend = 0) const
 	{
-		bool eventOk = _simServices.InvokeSimEvent(_moduleID, _event.GetID());
+		bool eventOk = _simServices.InvokeSimEvent(_moduleID, _event.GetID(), valueToSend);
 		bool dataRequestOk = _simServices.RequestData(_moduleID, _dataRequestID);
 
 		if (eventOk == false || dataRequestOk == false)
