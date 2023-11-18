@@ -6,7 +6,7 @@ ModuleMaster::ModuleMaster(const SimServices& simServices, ConsoleManager& conso
 {
     _name = "Master";
 
-    FlightControlUnit* flightControlUnit = new FlightControlUnit(simServices, _console, 0);
+    FlightControlUnit* flightControlUnit = new FlightControlUnit(simServices, _console, 1);
     _modules.push_back(flightControlUnit);
 }
 
