@@ -142,7 +142,19 @@ void FlightControlUnit::CreateFCUButtons()
 
 void FlightControlUnit::CreateFCUEncoders()
 {
+	HardwareElementBase base = HardwareElementBase(GetID(), DATA_REQUEST_ID_ACTION, _simServices, _console);
+	
+	_spdEncoder = new PushPullEncoder(base, GetEvent(EVENT_SPD_INC), GetEvent(EVENT_SPD_DEC), GetEvent(EVENT_SPD_PUSH), GetEvent(EVENT_SPD_PULL));
+	RegisterEncoder(_spdEncoder);
 
+	_hdgEncoder = new PushPullEncoder(base, GetEvent(EVENT_HDG_INC), GetEvent(EVENT_HDG_DEC), GetEvent(EVENT_HDG_PUSH), GetEvent(EVENT_HDG_PULL));
+	RegisterEncoder(_hdgEncoder);
+	
+	_altEncoder = new PushPullEncoder(base, GetEvent(EVENT_ALT_INC), GetEvent(EVENT_ALT_DEC), GetEvent(EVENT_ALT_PUSH), GetEvent(EVENT_ALT_PULL));
+	RegisterEncoder(_altEncoder);
+
+	_vsEncoder = new PushPullEncoder(base, GetEvent(EVENT_VS_INC), GetEvent(EVENT_VS_DEC), GetEvent(EVENT_VS_PUSH), GetEvent(EVENT_VS_PULL));
+	RegisterEncoder(_vsEncoder);
 }
 
 FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
