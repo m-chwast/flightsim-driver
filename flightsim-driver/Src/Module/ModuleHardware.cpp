@@ -68,3 +68,21 @@ const char* ModuleHardware::GetEventName(unsigned eventID) const
 		throw std::invalid_argument("Event " + std::to_string(eventID) + " not in events map");
 	return _events.at(eventID);
 }
+
+ModuleHardware::~ModuleHardware()
+{
+	for (const Button* b : _buttons)
+	{
+		if (b != nullptr)
+		{
+			delete b;
+		}
+	}
+	for (const Encoder* e : _encoders)
+	{
+		if (e != nullptr)
+		{
+			delete e;
+		}
+	}
+}

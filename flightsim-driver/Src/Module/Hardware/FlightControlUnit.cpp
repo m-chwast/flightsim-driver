@@ -198,12 +198,5 @@ void FlightControlUnit::ProcessEvent(const SIMCONNECT_RECV_EVENT* event)
 
 FlightControlUnit::~FlightControlUnit()
 {
-	delete _autothrustButton;
-	delete _autopilot1Button;
-	delete _autopilot2Button;
-	delete _expediteButton;
-	delete _locButton;
-	delete _apprButton;
-	delete _spdMachButton;
-	delete _trkFpaButton;
+
 }

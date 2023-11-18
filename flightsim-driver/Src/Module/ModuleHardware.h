@@ -47,7 +47,7 @@ public:
 	virtual void Initialize() override;
 	virtual void Manage() override;
 
-	virtual ~ModuleHardware() {}
+	virtual ~ModuleHardware();
 };
 
 enum DataRequestID
