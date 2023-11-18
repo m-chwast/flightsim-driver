@@ -17,6 +17,9 @@ public:
 		_pushButton(base, pushEvent), _pullButton(base, pullEvent)
 	{}
 
+	bool Push() const { return _pushButton.Press(); }
+	bool Pull() const { return _pullButton.Press(); }
+
 	virtual bool EventsSetup() const override
 	{
 		bool setupOk = Encoder::EventsSetup();
