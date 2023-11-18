@@ -107,15 +107,9 @@ void FlightControlUnit::RegisterFCUEvents()
 	RegisterEvent(EVENT_ALT_INCREMENT_SET, "A32NX.FCU_ALT_INCREMENT_SET");
 }
 
-FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
-	: ModuleHardware(simServices, console, id)
+void FlightControlUnit::CreateFCUButtons()
 {
-	_name = "FCU";
-	_dataUpdatePeriod = 1000;
-
-	RegisterFCUEvents();
-
-	HardwareElementBase base = HardwareElementBase(GetID(), DATA_REQUEST_ID_ACTION, simServices, console);
+	HardwareElementBase base = HardwareElementBase(GetID(), DATA_REQUEST_ID_ACTION, _simServices, _console);
 
 	/* "A32NX.FCU_ATHR_PUSH" event seems not to work, auto_throttle_arm works well though */
 	_autothrustButton = new StableButton(base, GetEvent(EVENT_AUTOTHRUST_PUSH));
@@ -144,6 +138,23 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 	_metricAltButton = new StableDataDrivenButton(base, (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE");
 	RegisterButton(_metricAltButton);
+}
+
+void FlightControlUnit::CreateFCUEncoders()
+{
+
+}
+
+FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
+	: ModuleHardware(simServices, console, id)
+{
+	_name = "FCU";
+	_dataUpdatePeriod = 1000;
+
+	RegisterFCUEvents();
+
+	CreateFCUButtons();
+	CreateFCUEncoders();
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
