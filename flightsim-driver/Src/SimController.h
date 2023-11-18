@@ -25,7 +25,7 @@ private:
 
 	SimServices * _simServices;
 	const ModuleMaster* _moduleMaster;
-	ConsoleManager* _console;
+	ConsoleManager& _console;
 
 	void ControllerHandler();
 	bool TryConnect();
@@ -40,7 +40,7 @@ private:
 
 public:
 	//ModuleMaster needs to be provided for event and data handling
-	SimController(ConsoleManager* console, const ModuleMaster* moduleMaster = nullptr);
+	SimController(ConsoleManager& console, const ModuleMaster* moduleMaster = nullptr);
 
 	void SearchForServer();
 	void StopSearchForServer();

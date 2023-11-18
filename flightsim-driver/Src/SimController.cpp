@@ -25,7 +25,7 @@ void SimController::ControllerHandler()
 
 bool SimController::TryConnect()
 {
-    _console->Send("Connecting...\r\n");
+    _console.Send("Connecting...\r\n");
 
     HRESULT result;
     result = SimConnect_Open(&_hSimConnect, "a320 hardware driver", NULL, 0, 0, 0);
@@ -34,22 +34,22 @@ bool SimController::TryConnect()
 
     if (result != S_OK)
     {
-        _console->Send("Unable to connect.\r\n");
+        _console.Send("Unable to connect.\r\n");
         _hSimConnect = nullptr;
         return false;
     }
 
     _isConnected = true;
-    _console->Send("Connected!\r\n");
+    _console.Send("Connected!\r\n");
     return true;
 }
 
 void SimController::Disconnect()
 {
-    _console->Send("Disconnecting...\r\n");
+    _console.Send("Disconnecting...\r\n");
     if (_hSimConnect == nullptr || _isConnected == false)
     {
-        _console->Send("Already disconnected\r\n");
+        _console.Send("Already disconnected\r\n");
         return;
     }
 
@@ -58,11 +58,11 @@ void SimController::Disconnect()
     
     if (res == S_OK)
     {
-        _console->Send("Disconnected.\r\n");
+        _console.Send("Disconnected.\r\n");
         return;
     }
 
-    _console->Send("Disconnection error\r\n");
+    _console.Send("Disconnection error\r\n");
 }
 
 void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
@@ -81,10 +81,10 @@ void SimController::TryConnectPeriodically(unsigned period, bool connectOnce)
     }
 }
 
-SimController::SimController(ConsoleManager* console, const ModuleMaster* moduleMaster)
+SimController::SimController(ConsoleManager& console, const ModuleMaster* moduleMaster)
+    : _console{ console }
 {
     _moduleMaster = moduleMaster;
-    _console = console;
     _simServices = new SimServices(&_hSimConnect, console);
     _controllerThread = new std::thread(&SimController::ControllerHandler, this);
 }
@@ -105,7 +105,7 @@ void SimController::StartSearch(unsigned period, bool stopSearchAfterFirstConnec
     if (_searchThread != nullptr)
         StopSearch();
 
-    _console->Send("Searching for server...\r\n");
+    _console.Send("Searching for server...\r\n");
     _searchActive = true;
     _searchThread = new std::thread(&SimController::TryConnectPeriodically,
         this, period, stopSearchAfterFirstConnection);
@@ -113,12 +113,12 @@ void SimController::StartSearch(unsigned period, bool stopSearchAfterFirstConnec
 
 void SimController::StopSearch()
 {
-    _console->Send("Stopping the search...\r\n");
+    _console.Send("Stopping the search...\r\n");
     _searchActive = false;
 
     if(_searchThread->joinable())
         _searchThread->join();
-    _console->Send("Search terminated\r\n");
+    _console.Send("Search terminated\r\n");
 
     if (_searchThread == nullptr)
         return;
@@ -151,14 +151,14 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     {
     case SIMCONNECT_RECV_ID_OPEN:
     {
-        _console->Send("Received Open data\r\n");
+        _console.Send("Received Open data\r\n");
         break;
     }
     case SIMCONNECT_RECV_ID_EVENT:
     {
         auto eventData = static_cast<const SIMCONNECT_RECV_EVENT*>(data);
-        _console->Send("Received Event. Module: " + std::to_string(eventData->uGroupID));
-        _console->Send(", Event: " + std::to_string(eventData->uEventID) + "\r\n");
+        _console.Send("Received Event. Module: " + std::to_string(eventData->uGroupID));
+        _console.Send(", Event: " + std::to_string(eventData->uEventID) + "\r\n");
         if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
             break;
         ModuleHardware* module = _moduleMaster->GetModule(eventData->uGroupID);
@@ -169,7 +169,7 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     case SIMCONNECT_RECV_ID_SIMOBJECT_DATA:
     {
         auto simobjectData = static_cast<const SIMCONNECT_RECV_SIMOBJECT_DATA*>(data);
-        _console->Send("Received Simobject data\r\n");
+        _console.Send("Received Simobject data\r\n");
         if (_moduleMaster == nullptr)   //it can be nullptr if not set in time
             break;
         ModuleHardware* module = _moduleMaster->GetModule(simobjectData->dwDefineID);
@@ -180,12 +180,12 @@ void SimController::DispatchHandlerProcessData(const SIMCONNECT_RECV* data)
     case SIMCONNECT_RECV_ID_EXCEPTION: 
     {
         auto simobjectData = static_cast<const SIMCONNECT_RECV_EXCEPTION*>(data);
-        _console->Send("Received Exception! dwException: " + std::to_string(simobjectData->dwException) + "\r\n");
+        _console.Send("Received Exception! dwException: " + std::to_string(simobjectData->dwException) + "\r\n");
         break;
     }
     default:
     {
-        _console->Send("Received unhandled data\r\n");
+        _console.Send("Received unhandled data\r\n");
         break;
     }
     }

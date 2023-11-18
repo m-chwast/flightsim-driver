@@ -6,10 +6,10 @@ void ModuleHardware::Initialize()
 	PrintInitMessage();
 
 	bool initOk = EventsInitialize();
-	_console->Send(_name + " Event setup " + (initOk == true ? "finished" : "failed") + "\r\n");
+	_console.Send(_name + " Event setup " + (initOk == true ? "finished" : "failed") + "\r\n");
 
 	initOk = DataInitialize();
-	_console->Send(_name + " Data setup " + (initOk == true ? "finished" : "failed") + "\r\n");
+	_console.Send(_name + " Data setup " + (initOk == true ? "finished" : "failed") + "\r\n");
 }
 
 void ModuleHardware::Manage()
@@ -25,7 +25,7 @@ void ModuleHardware::Manage()
 
 	if (timeDiff >= std::chrono::milliseconds(_dataUpdatePeriod))
 	{
-		_simServices->RequestData(GetID(), DATA_REQUEST_ID_PERIODIC);
+		_simServices.RequestData(GetID(), DATA_REQUEST_ID_PERIODIC);
 		lastUpdate = timeNow;
 	}
 }

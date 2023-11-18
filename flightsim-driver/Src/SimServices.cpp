@@ -28,12 +28,12 @@ bool SimServices::InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD even
 	{
 		std::string msg = "Error while transmitting event. Module: " + std::to_string(moduleID);
 		msg += ", Event: " + std::to_string(eventID) + "\r\n";
-		_console->Send(msg);
+		_console.Send(msg);
 		return false;
 	}
 	std::string msg = "Transmitted event. Module: " + std::to_string(moduleID);
 	msg += ", Event: " + std::to_string(eventID) + "\r\n";
-	_console->Send(msg);
+	_console.Send(msg);
 	return true;
 }
 
@@ -61,10 +61,10 @@ bool SimServices::RequestData(unsigned moduleID, int requestID) const
 
 	if (res != S_OK)
 	{
-		_console->Send("Error while requesting data. Module: " + std::to_string(moduleID) + "\r\n");
+		_console.Send("Error while requesting data. Module: " + std::to_string(moduleID) + "\r\n");
 		return false;
 	}
-	_console->Send("Requested data. Module: " + std::to_string(moduleID) + "\r\n");
+	_console.Send("Requested data. Module: " + std::to_string(moduleID) + "\r\n");
 	return true;
 }
 
@@ -72,7 +72,7 @@ bool SimServices::SetData(unsigned moduleID, unsigned elemCount, unsigned elemSi
 {
 	if (elemCount < 1)
 	{
-		_console->Send("Zero elements to be sent. Not sending anything\r\n");
+		_console.Send("Zero elements to be sent. Not sending anything\r\n");
 		return false;
 	}
 
@@ -80,10 +80,10 @@ bool SimServices::SetData(unsigned moduleID, unsigned elemCount, unsigned elemSi
 
 	if (res != S_OK)
 	{
-		_console->Send("Error while setting data. Module: " + std::to_string(moduleID) + "\r\n");
+		_console.Send("Error while setting data. Module: " + std::to_string(moduleID) + "\r\n");
 		return false;
 	}
-	_console->Send("Data sent. Module: " + std::to_string(moduleID) + "\r\n");
+	_console.Send("Data sent. Module: " + std::to_string(moduleID) + "\r\n");
 	return true;
 
 }

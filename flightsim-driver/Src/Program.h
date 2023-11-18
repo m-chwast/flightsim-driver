@@ -9,7 +9,7 @@ class Program final
 private:
 	
 	ConsoleManager consoleManager;
-	SimController simController = SimController(&consoleManager, nullptr);
+	SimController simController = SimController(consoleManager, nullptr);
 	ModuleMaster * moduleMaster;
 
 	void Initialize();
@@ -18,7 +18,7 @@ private:
 public:
 	Program()
 	{
-		moduleMaster = new ModuleMaster(simController.GetSimServices(), &consoleManager);
+		moduleMaster = new ModuleMaster(simController.GetSimServices(), consoleManager);
 		simController.SetModuleMaster(moduleMaster);
 	}
 

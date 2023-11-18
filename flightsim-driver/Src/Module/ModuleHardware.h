@@ -13,7 +13,7 @@ protected:
 	int _dataUpdatePeriod = -1;	//-1 -> no update, period is in ms 
 
 public:
-	ModuleHardware(const SimServices& simServices, ConsoleManager* console, unsigned id) : ModuleBase(simServices, console)
+	ModuleHardware(const SimServices& simServices, ConsoleManager& console, unsigned id) : ModuleBase(simServices, console)
 	{
 		_id = id;
 	}

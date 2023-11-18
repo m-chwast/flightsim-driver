@@ -10,7 +10,7 @@ private:
 public:
 
 	StableDataDrivenButton(unsigned moduleID, unsigned buttonDataRequestID, const char* dataName, 
-		unsigned generalDataRequestID, const SimServices* simServices, ConsoleManager* console)
+		unsigned generalDataRequestID, const SimServices& simServices, ConsoleManager& console)
 		: StableButton(moduleID, 0, "", generalDataRequestID, simServices, console), 
 		_dataName{dataName}, _buttonDataRequestID{buttonDataRequestID}
 	{}
@@ -19,14 +19,14 @@ public:
 	{
 		//set lvar to oppposite of stored value
 		int32_t newValue = !IsActive();
-		bool dataSetOk = _simServices->SetData(_buttonDataRequestID, 1, sizeof(int32_t), reinterpret_cast<void*>(&newValue));
-		bool dataRequestOk = _simServices->RequestData(_moduleID, _dataRequestID);
+		bool dataSetOk = _simServices.SetData(_buttonDataRequestID, 1, sizeof(int32_t), reinterpret_cast<void*>(&newValue));
+		bool dataRequestOk = _simServices.RequestData(_moduleID, _dataRequestID);
 
 		if (dataSetOk == false || dataRequestOk == false)
 		{
 			std::string msg = "ERROR: Module " + std::to_string(_moduleID) + "(DataDrivenButton)";
 			msg += ", Button data request ID " + std::to_string(_buttonDataRequestID) + ": Press failed\r\n";
-			_console->Send(msg);
+			_console.Send(msg);
 			return false;
 		}
 		return true;
@@ -35,7 +35,7 @@ public:
 	virtual bool EventSetup() const override
 	{
 		//this button type setups its own data request
-		bool isOk = _simServices->SetUpData(_buttonDataRequestID, _dataName, "Boolean", SIMCONNECT_DATATYPE_INT32);
+		bool isOk = _simServices.SetUpData(_buttonDataRequestID, _dataName, "Boolean", SIMCONNECT_DATATYPE_INT32);
 		return isOk;
 	}
 };

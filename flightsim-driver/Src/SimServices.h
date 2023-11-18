@@ -9,10 +9,10 @@ class SimServices
 private:
 	HANDLE* _hSimConnect;
 
-	ConsoleManager* _console = nullptr;
+	ConsoleManager& _console;
 
 public:
-	SimServices(HANDLE* hSimConnect, ConsoleManager* console) : _hSimConnect{ hSimConnect }, _console{ console } {}
+	SimServices(HANDLE* hSimConnect, ConsoleManager& console) : _hSimConnect{ hSimConnect }, _console{ console } {}
 
 	bool SetUpSimEvent(unsigned moduleID, unsigned eventID, const char* simEventName) const;
 	bool InvokeSimEvent(unsigned moduleID, unsigned eventID, DWORD eventData = 0) const;

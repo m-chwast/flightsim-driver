@@ -1,6 +1,8 @@
 #include <windows.h>
-#include "FlightControlUnit.h"
 #include <type_traits>
+#include "FlightControlUnit.h"
+#include "HardwareElementBase.h"
+
 
 typedef enum
 {
@@ -55,37 +57,37 @@ bool FlightControlUnit::DataInitialize()
 	
 	//data must be initialized manually to provide better control on sequence
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "number", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "number", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_1_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_1_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_FCU_LOC_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_FCU_LOC_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_FCU_APPR_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_FCU_APPR_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "AUTOPILOT MANAGED SPEED IN MACH", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "AUTOPILOT MANAGED SPEED IN MACH", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_TRK_FPA_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_TRK_FPA_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
-	if (_simServices->SetUpData(GetID(), "L:A32NX_METRIC_ALT_TOGGLE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
+	if (_simServices.SetUpData(GetID(), "L:A32NX_METRIC_ALT_TOGGLE", "Boolean", SIMCONNECT_DATATYPE_INT32) == false)
 		initOk = false;
 
 	return initOk;
 }
 
-FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager* console, unsigned id)
+FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
 	: ModuleHardware(simServices, console, id)
 {
 	_name = "FCU";
@@ -94,41 +96,41 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 	constexpr unsigned dataRequestID = DATA_REQUEST_ID_ACTION;
 
 	/* "A32NX.FCU_ATHR_PUSH" event seems not to work, auto_throttle_arm works well though */
-	_autothrustButton = new StableButton(GetID(), EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM", dataRequestID, &simServices, console);
+	_autothrustButton = new StableButton(GetID(), EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM", dataRequestID, simServices, console);
 	_buttons.push_back(_autothrustButton);
 
-	_autopilot1Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH", dataRequestID, &simServices, console);
+	_autopilot1Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH", dataRequestID, simServices, console);
 	_buttons.push_back(_autopilot1Button);
 
-	_autopilot2Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH", dataRequestID, &simServices, console);
+	_autopilot2Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH", dataRequestID, simServices, console);
 	_buttons.push_back(_autopilot2Button);
 
-	_expediteButton = new StableButton(GetID(), EVENT_EXPEDITE_PUSH, "A32NX.FCU_EXPED_PUSH", dataRequestID, &simServices, console);
+	_expediteButton = new StableButton(GetID(), EVENT_EXPEDITE_PUSH, "A32NX.FCU_EXPED_PUSH", dataRequestID, simServices, console);
 	_buttons.push_back(_expediteButton);
 
-	_locButton = new StableButton(GetID(), EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH", dataRequestID, &simServices, console);
+	_locButton = new StableButton(GetID(), EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH", dataRequestID, simServices, console);
 	_buttons.push_back(_locButton);
 
-	_apprButton = new StableButton(GetID(), EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH", dataRequestID, &simServices, console);
+	_apprButton = new StableButton(GetID(), EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH", dataRequestID, simServices, console);
 	_buttons.push_back(_apprButton);
 
-	_spdMachButton = new StableButton(GetID(), EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH", dataRequestID, &simServices, console);
+	_spdMachButton = new StableButton(GetID(), EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH", dataRequestID, simServices, console);
 	_buttons.push_back(_spdMachButton);
 
-	_trkFpaButton = new StableButton(GetID(), EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH", dataRequestID, &simServices, console);
+	_trkFpaButton = new StableButton(GetID(), EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH", dataRequestID, simServices, console);
 	_buttons.push_back(_trkFpaButton);
 
-	_metricAltButton = new StableDataDrivenButton(GetID(), (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE", dataRequestID, &simServices, console);
+	_metricAltButton = new StableDataDrivenButton(GetID(), (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE", dataRequestID, simServices, console);
 	_buttons.push_back(_metricAltButton);
 }
 
 void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 {
-	_console->Send(_name + " Module Data Processing: ");
+	_console.Send(_name + " Module Data Processing: ");
 	
 	if (data == nullptr)
 	{
-		_console->Send(" error!\r\n");
+		_console.Send(" error!\r\n");
 		return;
 	}
 
@@ -144,16 +146,16 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_trkFpaButton->SetState(fcuData->unlightedButtons.trkFpa);
 	_metricAltButton->SetState(fcuData->unlightedButtons.metricAlt);
 
-	_console->Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
-	_console->Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
-	_console->Send("AP2: " + std::to_string(_autopilot2Button->IsActive()) + "\r\n");
-	_console->Send("EXPED: " + std::to_string(_expediteButton->IsActive()) + "\r\n");
-	_console->Send("LOC: " + std::to_string(_locButton->IsActive()) + "\r\n");
-	_console->Send("APPR: " + std::to_string(_apprButton->IsActive()) + "\r\n");
-	_console->Send("SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "\r\n");
-	_console->Send("TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "\r\n");
-	_console->Send("Metric Alt: " + std::to_string(_metricAltButton->IsActive()) + "\r\n");
-	_console->Send("\r\n");
+	_console.Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
+	_console.Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
+	_console.Send("AP2: " + std::to_string(_autopilot2Button->IsActive()) + "\r\n");
+	_console.Send("EXPED: " + std::to_string(_expediteButton->IsActive()) + "\r\n");
+	_console.Send("LOC: " + std::to_string(_locButton->IsActive()) + "\r\n");
+	_console.Send("APPR: " + std::to_string(_apprButton->IsActive()) + "\r\n");
+	_console.Send("SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "\r\n");
+	_console.Send("TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "\r\n");
+	_console.Send("Metric Alt: " + std::to_string(_metricAltButton->IsActive()) + "\r\n");
+	_console.Send("\r\n");
 }
 
 void FlightControlUnit::ProcessEvent(const SIMCONNECT_RECV_EVENT* event)
