@@ -54,6 +54,9 @@
     <ClCompile Include="Src\SimServices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Module\Hardware\Encoder.cpp">
+      <Filter>Source Files\Module\Hardware</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Module\ModuleBase.h">

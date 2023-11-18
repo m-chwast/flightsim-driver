@@ -13,10 +13,16 @@ private:
 	const SimEvent _incEvent;
 	const SimEvent _decEvent;
 
+protected:
+	bool InvokeEventAndRequestData(const SimEvent& evt) const;
+
 public:
 	Encoder(HardwareElementBase& base, SimEvent incEvent, SimEvent decEvent)
 		: HardwareElementBase(base), _incEvent{ incEvent }, _decEvent{ decEvent }
 	{}
+
+	bool Increment() const { return InvokeEventAndRequestData(_incEvent); }
+	bool Decrement() const { return InvokeEventAndRequestData(_decEvent); }
 
 	virtual bool EventsSetup() const
 	{

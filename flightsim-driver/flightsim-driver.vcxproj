@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Src\ConsoleManager.cpp" />
     <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Module\Hardware\Encoder.cpp" />
     <ClCompile Include="Src\Module\Hardware\FlightControlUnit.cpp" />
     <ClCompile Include="Src\Module\ModuleBase.cpp" />
     <ClCompile Include="Src\Module\ModuleHardware.cpp" />
