@@ -18,6 +18,8 @@ private:
 	StableButton* _trkFpaButton;
 	StableDataDrivenButton* _metricAltButton;
 
+	StableButton* _altIncrementSwitch;	//can be treated like a button, press should send 100 or 1000
+
 	PushPullEncoder* _spdEncoder;
 	PushPullEncoder* _hdgEncoder;
 	PushPullEncoder* _altEncoder;

@@ -138,6 +138,9 @@ void FlightControlUnit::CreateFCUButtons()
 
 	_metricAltButton = new StableDataDrivenButton(base, GetFirstReservedID() + 1, "L:A32NX_METRIC_ALT_TOGGLE");
 	RegisterButton(_metricAltButton);
+
+	_altIncrementSwitch = new StableButton(base, GetEvent(EVENT_ALT_INCREMENT_SET));
+	RegisterButton(_altIncrementSwitch);
 }
 
 void FlightControlUnit::CreateFCUEncoders()
