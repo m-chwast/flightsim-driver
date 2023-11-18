@@ -4,7 +4,7 @@
 #include "HardwareElementBase.h"
 
 
-typedef enum
+enum FCUEventType
 {
 	//buttons
 	EVENT_AUTOTHRUST_PUSH,
@@ -32,7 +32,7 @@ typedef enum
 	EVENT_VS_DEC,
 	EVENT_VS_PUSH,
 	EVENT_VS_PULL,
-} EventType;
+};
 
 typedef struct
 {

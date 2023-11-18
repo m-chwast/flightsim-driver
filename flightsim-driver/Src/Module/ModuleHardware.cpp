@@ -1,4 +1,5 @@
 #include <chrono>
+#include <stdexcept>
 #include "ModuleHardware.h"
 
 
@@ -50,4 +51,20 @@ void ModuleHardware::Manage()
 		_simServices.RequestData(GetID(), DATA_REQUEST_ID_PERIODIC);
 		lastUpdate = timeNow;
 	}
+}
+
+void ModuleHardware::RegisterEvent(unsigned id, const char* evt)
+{
+	if (evt == nullptr)
+		throw std::invalid_argument("Event name cannot be null");
+	if (_events.contains(id))
+		throw std::invalid_argument("Event " + std::to_string(id) + " already registered");
+	_events.insert(std::pair(id, evt));
+}
+
+const char* ModuleHardware::GetEvent(unsigned eventID) const
+{
+	if (_events.contains(eventID) == false)
+		throw std::invalid_argument("Event " + std::to_string(eventID) + " not in events map");
+	return _events.at(eventID);
 }
