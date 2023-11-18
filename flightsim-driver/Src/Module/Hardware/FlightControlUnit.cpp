@@ -75,6 +75,7 @@ bool FlightControlUnit::DataInitialize()
 
 void FlightControlUnit::RegisterFCUEvents()
 {
+	//buttons
 	RegisterEvent(EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM");
 	RegisterEvent(EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH");
 	RegisterEvent(EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH");
@@ -83,6 +84,23 @@ void FlightControlUnit::RegisterFCUEvents()
 	RegisterEvent(EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH");
 	RegisterEvent(EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH");
 	RegisterEvent(EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH");
+	//encoders
+	RegisterEvent(EVENT_SPD_INC, "A32NX.FCU_SPD_INC");
+	RegisterEvent(EVENT_SPD_DEC, "A32NX.FCU_SPD_DEC");
+	RegisterEvent(EVENT_SPD_PUSH, "A32NX.FCU_SPD_PUSH");
+	RegisterEvent(EVENT_SPD_PULL, "A32NX.FCU_SPD_PULL");
+	RegisterEvent(EVENT_HDG_INC, "A32NX.FCU_HDG_INC");
+	RegisterEvent(EVENT_HDG_DEC, "A32NX.FCU_HDG_DEC");
+	RegisterEvent(EVENT_HDG_PUSH, "A32NX.FCU_HDG_PUSH");
+	RegisterEvent(EVENT_HDG_PULL, "A32NX.FCU_HDG_PULL");
+	RegisterEvent(EVENT_ALT_INC, "A32NX.FCU_ALT_INC");
+	RegisterEvent(EVENT_ALT_DEC, "A32NX.FCU_ALT_DEC");
+	RegisterEvent(EVENT_ALT_PUSH, "A32NX.FCU_ALT_PUSH");
+	RegisterEvent(EVENT_ALT_PULL, "A32NX.FCU_ALT_PULL");
+	RegisterEvent(EVENT_VS_INC, "A32NX.FCU_VS_INC"); 
+	RegisterEvent(EVENT_VS_DEC, "A32NX.FCU_VS_DEC");
+	RegisterEvent(EVENT_VS_PUSH, "A32NX.FCU_VS_PUSH");
+	RegisterEvent(EVENT_VS_PULL, "A32NX.FCU_VS_PULL");
 }
 
 FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
