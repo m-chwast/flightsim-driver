@@ -95,32 +95,34 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 
 	constexpr unsigned dataRequestID = DATA_REQUEST_ID_ACTION;
 
+	HardwareElementBase base = HardwareElementBase(GetID(), DATA_REQUEST_ID_ACTION, simServices, console);
+
 	/* "A32NX.FCU_ATHR_PUSH" event seems not to work, auto_throttle_arm works well though */
-	_autothrustButton = new StableButton(GetID(), EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM", dataRequestID, simServices, console);
+	_autothrustButton = new StableButton(base, EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM");
 	_buttons.push_back(_autothrustButton);
 
-	_autopilot1Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH", dataRequestID, simServices, console);
+	_autopilot1Button = new StableButton(base, EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH");
 	_buttons.push_back(_autopilot1Button);
 
-	_autopilot2Button = new StableButton(GetID(), EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH", dataRequestID, simServices, console);
+	_autopilot2Button = new StableButton(base, EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH");
 	_buttons.push_back(_autopilot2Button);
 
-	_expediteButton = new StableButton(GetID(), EVENT_EXPEDITE_PUSH, "A32NX.FCU_EXPED_PUSH", dataRequestID, simServices, console);
+	_expediteButton = new StableButton(base, EVENT_EXPEDITE_PUSH, "A32NX.FCU_EXPED_PUSH");
 	_buttons.push_back(_expediteButton);
 
-	_locButton = new StableButton(GetID(), EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH", dataRequestID, simServices, console);
+	_locButton = new StableButton(base, EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH");
 	_buttons.push_back(_locButton);
 
-	_apprButton = new StableButton(GetID(), EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH", dataRequestID, simServices, console);
+	_apprButton = new StableButton(base, EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH");
 	_buttons.push_back(_apprButton);
 
-	_spdMachButton = new StableButton(GetID(), EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH", dataRequestID, simServices, console);
+	_spdMachButton = new StableButton(base, EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH");
 	_buttons.push_back(_spdMachButton);
 
-	_trkFpaButton = new StableButton(GetID(), EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH", dataRequestID, simServices, console);
+	_trkFpaButton = new StableButton(base, EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH");
 	_buttons.push_back(_trkFpaButton);
 
-	_metricAltButton = new StableDataDrivenButton(GetID(), (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE", dataRequestID, simServices, console);
+	_metricAltButton = new StableDataDrivenButton(base, (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE");
 	_buttons.push_back(_metricAltButton);
 }
 

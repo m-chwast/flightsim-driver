@@ -9,9 +9,8 @@ private:
 	const unsigned _buttonDataRequestID;
 public:
 
-	StableDataDrivenButton(unsigned moduleID, unsigned buttonDataRequestID, const char* dataName, 
-		unsigned generalDataRequestID, const SimServices& simServices, ConsoleManager& console)
-		: StableButton(moduleID, 0, "", generalDataRequestID, simServices, console), 
+	StableDataDrivenButton(HardwareElementBase& base, unsigned buttonDataRequestID, const char* dataName)
+		: StableButton(base, 0, ""), 
 		_dataName{dataName}, _buttonDataRequestID{buttonDataRequestID}
 	{}
 

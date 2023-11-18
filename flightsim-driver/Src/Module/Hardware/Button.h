@@ -3,24 +3,18 @@
 #include <exception>
 #include "SimServices.h"
 #include "ConsoleManager.h"
+#include "HardwareElementBase.h"
 
-class Button
+
+class Button : public HardwareElementBase
 {
 private:
 	const unsigned _eventID;
 	const char* const _eventName;
 	
-protected:
-	const unsigned _moduleID;
-	const unsigned _dataRequestID;
-
-	const SimServices& _simServices;
-	ConsoleManager& _console;
-
 public:
-
-	Button(unsigned moduleID, unsigned eventID, const char* eventName, unsigned dataRequestID, const SimServices& simServices, ConsoleManager& console)
-		: _moduleID{ moduleID }, _eventID{ eventID }, _eventName{ eventName }, _dataRequestID{ dataRequestID }, _simServices{ simServices }, _console{ console }
+	Button(HardwareElementBase& base, unsigned eventID, const char* eventName)
+		: HardwareElementBase(base), _eventID{ eventID }, _eventName{ eventName }
 	{}
 
 	virtual bool Press() const
