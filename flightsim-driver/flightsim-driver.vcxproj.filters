@@ -95,5 +95,8 @@
     <ClInclude Include="Src\Module\Hardware\PushPullEncoder.h">
       <Filter>Header Files\Module\Hardware</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\HardwareElementBase.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
