@@ -21,7 +21,7 @@ private:
 	PushPullEncoder* _spdEncoder;
 	PushPullEncoder* _hdgEncoder;
 	PushPullEncoder* _altEncoder;
-	PushPullEncoder* _vspdEncoder;
+	PushPullEncoder* _vsEncoder;
 
 	virtual bool DataInitialize() override;
 
