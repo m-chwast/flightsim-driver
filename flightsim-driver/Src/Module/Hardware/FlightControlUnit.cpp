@@ -32,6 +32,8 @@ enum FCUEventType
 	EVENT_VS_DEC,
 	EVENT_VS_PUSH,
 	EVENT_VS_PULL,
+	//others
+	EVENT_ALT_INCREMENT_SET,
 };
 
 typedef struct
@@ -101,6 +103,8 @@ void FlightControlUnit::RegisterFCUEvents()
 	RegisterEvent(EVENT_VS_DEC, "A32NX.FCU_VS_DEC");
 	RegisterEvent(EVENT_VS_PUSH, "A32NX.FCU_VS_PUSH");
 	RegisterEvent(EVENT_VS_PULL, "A32NX.FCU_VS_PULL");
+	//others
+	RegisterEvent(EVENT_ALT_INCREMENT_SET, "A32NX.FCU_ALT_INCREMENT_SET");
 }
 
 FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
