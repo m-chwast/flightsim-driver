@@ -28,8 +28,6 @@ private:
 
 	std::vector<const Encoder*> _encoders;
 
-
-	virtual bool EventsInitialize() override;
 	virtual bool DataInitialize() override;
 
 public:

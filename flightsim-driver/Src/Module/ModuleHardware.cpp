@@ -13,6 +13,27 @@ void ModuleHardware::Initialize()
 	_console.Send(_name + " Data setup " + (initOk == true ? "finished" : "failed") + "\r\n");
 }
 
+bool ModuleHardware::EventsInitialize() const
+{
+	bool initOk = true;
+
+	for (const Button* b : _buttons)
+	{
+		bool eventSetupOk = b->EventSetup();
+		if (eventSetupOk == false)
+			initOk = false;
+	}
+
+	for (const Encoder* e : _encoders)
+	{
+		bool eventSetupOk = e->EventsSetup();
+		if (eventSetupOk == false)
+			initOk = false;
+	}
+
+	return initOk;
+}
+
 void ModuleHardware::Manage()
 {
 	static std::chrono::time_point<std::chrono::system_clock> lastUpdate;

@@ -37,20 +37,6 @@ typedef struct
 
 static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
 
-bool FlightControlUnit::EventsInitialize()
-{
-	bool initOk = true;
-	
-	for(const Button * b : _buttons)
-	{
-		bool eventSetupOk = b->EventSetup();
-		if (eventSetupOk == false)
-			initOk = false;
-	}
-
-	return initOk;
-}
-
 bool FlightControlUnit::DataInitialize()
 {
 	bool initOk = true;

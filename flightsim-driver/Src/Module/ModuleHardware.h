@@ -13,7 +13,7 @@ private:
 	std::vector<const Button*> _buttons;
 	std::vector<const Encoder*> _encoders;
 
-	virtual bool EventsInitialize() { return false; };
+	virtual bool EventsInitialize() const;
 	virtual bool DataInitialize() = 0;
 
 protected:
