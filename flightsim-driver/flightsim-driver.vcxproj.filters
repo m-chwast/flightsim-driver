@@ -13,81 +13,81 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Module">
-      <UniqueIdentifier>{7f870b4f-d987-4ee2-a1ab-4c59acf71917}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Module">
       <UniqueIdentifier>{8c47bad0-cad5-4460-a793-77df80875ec5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Module\Hardware">
-      <UniqueIdentifier>{4ca994d6-01b5-4006-a7e6-ab40a820effa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Module\Hardware">
       <UniqueIdentifier>{c054db9d-f412-4cb4-a221-eef1a815bc84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Module">
+      <UniqueIdentifier>{d5f4ee97-a5d0-443a-8d95-1c6e37e5b8e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Module\Hardware">
+      <UniqueIdentifier>{dd2d31e9-7105-45d2-bf53-b83478ce6697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsoleManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleBase.cpp">
-      <Filter>Source Files\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleMaster.cpp">
-      <Filter>Source Files\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="SimController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleHardware.cpp">
-      <Filter>Source Files\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="FlightControlUnit.cpp">
+    <ClCompile Include="Src\Module\Hardware\FlightControlUnit.cpp">
       <Filter>Source Files\Module\Hardware</Filter>
     </ClCompile>
-    <ClCompile Include="SimServices.cpp">
+    <ClCompile Include="Src\Module\ModuleBase.cpp">
+      <Filter>Source Files\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Module\ModuleHardware.cpp">
+      <Filter>Source Files\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Module\ModuleMaster.cpp">
+      <Filter>Source Files\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ConsoleManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SimController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SimServices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Program.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsoleManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleBase.h">
+    <ClInclude Include="Src\Module\ModuleBase.h">
       <Filter>Header Files\Module</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleMaster.h">
+    <ClInclude Include="Src\Module\ModuleHardware.h">
       <Filter>Header Files\Module</Filter>
     </ClInclude>
-    <ClInclude Include="SimController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleHardware.h">
+    <ClInclude Include="Src\Module\ModuleMaster.h">
       <Filter>Header Files\Module</Filter>
     </ClInclude>
-    <ClInclude Include="FlightControlUnit.h">
+    <ClInclude Include="Src\Module\Hardware\Button.h">
       <Filter>Header Files\Module\Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="SimServices.h">
+    <ClInclude Include="Src\Module\Hardware\FlightControlUnit.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\StableButton.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ConsoleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\Module\Hardware</Filter>
+    <ClInclude Include="Src\Program.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StableButton.h">
-      <Filter>Header Files\Module\Hardware</Filter>
+    <ClInclude Include="Src\SimController.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StableDataDrivenButton.h">
-      <Filter>Header Files\Module\Hardware</Filter>
+    <ClInclude Include="Src\SimServices.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

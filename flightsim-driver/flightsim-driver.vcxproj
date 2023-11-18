@@ -18,6 +18,30 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\ConsoleManager.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Module\Hardware\FlightControlUnit.cpp" />
+    <ClCompile Include="Src\Module\ModuleBase.cpp" />
+    <ClCompile Include="Src\Module\ModuleHardware.cpp" />
+    <ClCompile Include="Src\Module\ModuleMaster.cpp" />
+    <ClCompile Include="Src\Program.cpp" />
+    <ClCompile Include="Src\SimController.cpp" />
+    <ClCompile Include="Src\SimServices.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\ConsoleManager.h" />
+    <ClInclude Include="Src\Module\Hardware\Button.h" />
+    <ClInclude Include="Src\Module\Hardware\FlightControlUnit.h" />
+    <ClInclude Include="Src\Module\Hardware\StableButton.h" />
+    <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h" />
+    <ClInclude Include="Src\Module\ModuleBase.h" />
+    <ClInclude Include="Src\Module\ModuleHardware.h" />
+    <ClInclude Include="Src\Module\ModuleMaster.h" />
+    <ClInclude Include="Src\Program.h" />
+    <ClInclude Include="Src\SimController.h" />
+    <ClInclude Include="Src\SimServices.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -122,6 +146,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(MSFS_SDK)\SimConnect SDK\include;$(SolutionDir)\Src;$(SolutionDir)\Src\Module;$(SolutionDir)\Src\Module\Hardware</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +163,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(MSFS_SDK)\SimConnect SDK\include;$(SolutionDir)\Src;$(SolutionDir)\Src\Module;$(SolutionDir)\Src\Module\Hardware</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,30 +172,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="ConsoleManager.cpp" />
-    <ClCompile Include="FlightControlUnit.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModuleBase.cpp" />
-    <ClCompile Include="ModuleHardware.cpp" />
-    <ClCompile Include="ModuleMaster.cpp" />
-    <ClCompile Include="Program.cpp" />
-    <ClCompile Include="SimController.cpp" />
-    <ClCompile Include="SimServices.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="ConsoleManager.h" />
-    <ClInclude Include="FlightControlUnit.h" />
-    <ClInclude Include="ModuleBase.h" />
-    <ClInclude Include="ModuleHardware.h" />
-    <ClInclude Include="ModuleMaster.h" />
-    <ClInclude Include="Program.h" />
-    <ClInclude Include="SimController.h" />
-    <ClInclude Include="SimServices.h" />
-    <ClInclude Include="StableButton.h" />
-    <ClInclude Include="StableDataDrivenButton.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
