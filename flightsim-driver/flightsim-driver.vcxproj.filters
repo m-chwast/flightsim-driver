@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Module\Hardware">
       <UniqueIdentifier>{dd2d31e9-7105-45d2-bf53-b83478ce6697}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Module\Hardware\Button">
+      <UniqueIdentifier>{204931e4-4b7e-4f45-b2e1-3a0823f72e9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Module\Hardware\FlightControlUnit.cpp">
@@ -68,16 +71,7 @@
     <ClInclude Include="Src\Module\ModuleMaster.h">
       <Filter>Header Files\Module</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Module\Hardware\Button.h">
-      <Filter>Header Files\Module\Hardware</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Module\Hardware\FlightControlUnit.h">
-      <Filter>Header Files\Module\Hardware</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Module\Hardware\StableButton.h">
-      <Filter>Header Files\Module\Hardware</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h">
       <Filter>Header Files\Module\Hardware</Filter>
     </ClInclude>
     <ClInclude Include="Src\ConsoleManager.h">
@@ -103,6 +97,15 @@
     </ClInclude>
     <ClInclude Include="Src\Module\Hardware\SimEvent.h">
       <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\Button.h">
+      <Filter>Header Files\Module\Hardware\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\StableButton.h">
+      <Filter>Header Files\Module\Hardware\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h">
+      <Filter>Header Files\Module\Hardware\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
