@@ -27,7 +27,7 @@ public:
 	virtual bool EventsSetup() const
 	{
 		bool setupOk = _simServices.SetUpSimEvent(_moduleID, _incEvent.GetID(), _incEvent.GetName());
-		setupOk |= _simServices.SetUpSimEvent(_moduleID, _decEvent.GetID(), _decEvent.GetName());
+		setupOk &= _simServices.SetUpSimEvent(_moduleID, _decEvent.GetID(), _decEvent.GetName());
 		return setupOk;
 	}
 };
