@@ -136,7 +136,7 @@ void FlightControlUnit::CreateFCUButtons()
 	_trkFpaButton = new StableButton(base, GetEvent(EVENT_TRK_FPA_TOGGLE_PUSH));
 	RegisterButton(_trkFpaButton);
 
-	_metricAltButton = new StableDataDrivenButton(base, (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE");
+	_metricAltButton = new StableDataDrivenButton(base, GetFirstReservedID() + 1, "L:A32NX_METRIC_ALT_TOGGLE");
 	RegisterButton(_metricAltButton);
 }
 

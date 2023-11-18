@@ -33,9 +33,13 @@ public:
 	ModuleHardware(const SimServices& simServices, ConsoleManager& console, unsigned id)
 		: ModuleBase(simServices, console),
 		_id{ id }
-	{}
+	{
+		if (id == 0)
+			throw std::invalid_argument("module ID cannot be 0 (to create reserved id space for the module)");
+	}
 
 	unsigned GetID() const { return _id; }
+	unsigned GetFirstReservedID() const { return GetID() * 100; }
 
 	virtual void ProcessEvent(const SIMCONNECT_RECV_EVENT* data) = 0;
 	virtual void ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data) = 0;
