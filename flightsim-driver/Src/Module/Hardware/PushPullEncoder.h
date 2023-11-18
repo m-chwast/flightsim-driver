@@ -1,13 +1,13 @@
 #pragma once
 #include "Encoder.h"
-#include "StableButton.h"
+#include "Button.h"
 
 
 class PushPullEncoder : public Encoder
 {
 private:
-	const StableButton _pushButton;
-	const StableButton _pullButton;
+	const Button _pushButton;
+	const Button _pullButton;
 
 public:
 	PushPullEncoder(HardwareElementBase& base,
