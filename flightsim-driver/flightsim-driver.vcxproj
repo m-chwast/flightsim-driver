@@ -35,6 +35,7 @@
     <ClInclude Include="Src\Module\Hardware\Encoder.h" />
     <ClInclude Include="Src\Module\Hardware\FlightControlUnit.h" />
     <ClInclude Include="Src\Module\Hardware\HardwareElementBase.h" />
+    <ClInclude Include="Src\Module\Hardware\SimEvent.h" />
     <ClInclude Include="Src\Module\Hardware\PushPullEncoder.h" />
     <ClInclude Include="Src\Module\Hardware\StableButton.h" />
     <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h" />

@@ -4,28 +4,28 @@
 #include "SimServices.h"
 #include "ConsoleManager.h"
 #include "HardwareElementBase.h"
+#include "SimEvent.h"
 
 
 class Button : public HardwareElementBase
 {
 private:
-	const unsigned _eventID;
-	const char* const _eventName;
+	const SimEvent _event;
 	
 public:
 	Button(HardwareElementBase& base, unsigned eventID, const char* eventName)
-		: HardwareElementBase(base), _eventID{ eventID }, _eventName{ eventName }
+		: HardwareElementBase(base), _event{ SimEvent(eventID, eventName) }
 	{}
 
 	virtual bool Press() const
 	{
-		bool eventOk = _simServices.InvokeSimEvent(_moduleID, _eventID);
+		bool eventOk = _simServices.InvokeSimEvent(_moduleID, _event.GetID());
 		bool dataRequestOk = _simServices.RequestData(_moduleID, _dataRequestID);
 
 		if (eventOk == false || dataRequestOk == false)
 		{
 			std::string msg = "ERROR: Module " + std::to_string(_moduleID);
-			msg += ", Event " + std::to_string(_eventID) + ": Press failed\r\n";
+			msg += ", Event " + std::to_string(_event.GetID()) + ": Press failed\r\n";
 			_console.Send(msg);
 			return false;
 		}
@@ -34,7 +34,7 @@ public:
 
 	virtual bool EventSetup() const 
 	{
-		bool setupOk = _simServices.SetUpSimEvent(_moduleID, _eventID, _eventName);
+		bool setupOk = _simServices.SetUpSimEvent(_moduleID, _event.GetID(), _event.GetName());
 		return setupOk;
 	}
 };

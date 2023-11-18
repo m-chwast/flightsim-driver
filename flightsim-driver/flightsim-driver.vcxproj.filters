@@ -98,5 +98,8 @@
     <ClInclude Include="Src\Module\Hardware\HardwareElementBase.h">
       <Filter>Header Files\Module\Hardware</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\SimEvent.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
