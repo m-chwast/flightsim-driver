@@ -1,5 +1,6 @@
-#include "ModuleHardware.h"
 #include <chrono>
+#include "ModuleHardware.h"
+
 
 void ModuleHardware::Initialize()
 {
