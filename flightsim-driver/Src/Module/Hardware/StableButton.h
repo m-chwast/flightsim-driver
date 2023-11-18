@@ -7,8 +7,8 @@ private:
 	bool _isActive = false;
 
 public:
-	StableButton(HardwareElementBase& base, unsigned eventID, const char* eventName)
-		: Button(base, eventID, eventName) 
+	StableButton(HardwareElementBase& base, const SimEvent pushEvent)
+		: Button(base, pushEvent) 
 	{}
 
 	bool IsActive() const { return _isActive; }

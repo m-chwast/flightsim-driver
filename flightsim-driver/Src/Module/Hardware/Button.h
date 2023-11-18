@@ -13,8 +13,8 @@ private:
 	const SimEvent _event;
 	
 public:
-	Button(HardwareElementBase& base, unsigned eventID, const char* eventName)
-		: HardwareElementBase(base), _event{ SimEvent(eventID, eventName) }
+	Button(HardwareElementBase& base, const SimEvent pushEvent)
+		: HardwareElementBase(base), _event{ pushEvent }
 	{}
 
 	virtual bool Press() const

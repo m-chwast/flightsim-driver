@@ -98,28 +98,28 @@ FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleMana
 	HardwareElementBase base = HardwareElementBase(GetID(), DATA_REQUEST_ID_ACTION, simServices, console);
 
 	/* "A32NX.FCU_ATHR_PUSH" event seems not to work, auto_throttle_arm works well though */
-	_autothrustButton = new StableButton(base, EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM");
+	_autothrustButton = new StableButton(base, SimEvent(EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM"));
 	_buttons.push_back(_autothrustButton);
 
-	_autopilot1Button = new StableButton(base, EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH");
+	_autopilot1Button = new StableButton(base, SimEvent(EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH"));
 	_buttons.push_back(_autopilot1Button);
 
-	_autopilot2Button = new StableButton(base, EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH");
+	_autopilot2Button = new StableButton(base, SimEvent(EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH"));
 	_buttons.push_back(_autopilot2Button);
 
-	_expediteButton = new StableButton(base, EVENT_EXPEDITE_PUSH, "A32NX.FCU_EXPED_PUSH");
+	_expediteButton = new StableButton(base, SimEvent(EVENT_EXPEDITE_PUSH, "A32NX.FCU_EXPED_PUSH"));
 	_buttons.push_back(_expediteButton);
 
-	_locButton = new StableButton(base, EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH");
+	_locButton = new StableButton(base, SimEvent(EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH"));
 	_buttons.push_back(_locButton);
 
-	_apprButton = new StableButton(base, EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH");
+	_apprButton = new StableButton(base, SimEvent(EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH"));
 	_buttons.push_back(_apprButton);
 
-	_spdMachButton = new StableButton(base, EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH");
+	_spdMachButton = new StableButton(base, SimEvent(EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH"));
 	_buttons.push_back(_spdMachButton);
 
-	_trkFpaButton = new StableButton(base, EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH");
+	_trkFpaButton = new StableButton(base, SimEvent(EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH"));
 	_buttons.push_back(_trkFpaButton);
 
 	_metricAltButton = new StableDataDrivenButton(base, (GetID() * 100) + 1, "L:A32NX_METRIC_ALT_TOGGLE");

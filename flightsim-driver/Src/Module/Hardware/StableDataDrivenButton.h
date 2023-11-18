@@ -10,7 +10,7 @@ private:
 public:
 
 	StableDataDrivenButton(HardwareElementBase& base, unsigned buttonDataRequestID, const char* dataName)
-		: StableButton(base, 0, ""), 
+		: StableButton(base, SimEvent(0, "")), 
 		_dataName{dataName}, _buttonDataRequestID{buttonDataRequestID}
 	{}
 
