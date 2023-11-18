@@ -25,6 +25,8 @@ private:
 
 	virtual bool DataInitialize() override;
 
+	void RegisterFCUEvents();
+
 public:
 	FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id);
 

@@ -26,7 +26,8 @@ protected:
 	void RegisterEncoder(const Encoder* encoder) { _encoders.push_back(encoder); }
 
 	void RegisterEvent(unsigned id, const char* evt);
-	const char* GetEvent(unsigned eventID) const;
+	const char* GetEventName(unsigned eventID) const;
+	SimEvent GetEvent(unsigned eventID) const { return SimEvent(eventID, GetEventName(eventID)); }
 
 public:
 	ModuleHardware(const SimServices& simServices, ConsoleManager& console, unsigned id)

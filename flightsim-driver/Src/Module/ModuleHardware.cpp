@@ -62,7 +62,7 @@ void ModuleHardware::RegisterEvent(unsigned id, const char* evt)
 	_events.insert(std::pair(id, evt));
 }
 
-const char* ModuleHardware::GetEvent(unsigned eventID) const
+const char* ModuleHardware::GetEventName(unsigned eventID) const
 {
 	if (_events.contains(eventID) == false)
 		throw std::invalid_argument("Event " + std::to_string(eventID) + " not in events map");

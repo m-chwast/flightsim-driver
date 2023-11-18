@@ -91,11 +91,25 @@ bool FlightControlUnit::DataInitialize()
 	return initOk;
 }
 
+void FlightControlUnit::RegisterFCUEvents()
+{
+	RegisterEvent(EVENT_AUTOTHRUST_PUSH, "AUTO_THROTTLE_ARM");
+	RegisterEvent(EVENT_AUTOPILOT_AP1_PUSH, "A32NX.FCU_AP_1_PUSH");
+	RegisterEvent(EVENT_AUTOPILOT_AP2_PUSH, "A32NX.FCU_AP_2_PUSH");
+	RegisterEvent(EVENT_EXPEDITE_PUSH, "A32NX.FCU_EXPED_PUSH");
+	RegisterEvent(EVENT_LOC_PUSH, "A32NX.FCU_LOC_PUSH");
+	RegisterEvent(EVENT_APPR_PUSH, "A32NX.FCU_APPR_PUSH");
+	RegisterEvent(EVENT_SPD_MACH_TOGGLE_PUSH, "A32NX.FCU_SPD_MACH_TOGGLE_PUSH");
+	RegisterEvent(EVENT_TRK_FPA_TOGGLE_PUSH, "A32NX.FCU_TRK_FPA_TOGGLE_PUSH");
+}
+
 FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
 	: ModuleHardware(simServices, console, id)
 {
 	_name = "FCU";
 	_dataUpdatePeriod = 1000;
+
+	RegisterFCUEvents();
 
 	HardwareElementBase base = HardwareElementBase(GetID(), DATA_REQUEST_ID_ACTION, simServices, console);
 
