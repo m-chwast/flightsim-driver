@@ -32,7 +32,9 @@
   <ItemGroup>
     <ClInclude Include="Src\ConsoleManager.h" />
     <ClInclude Include="Src\Module\Hardware\Button.h" />
+    <ClInclude Include="Src\Module\Hardware\Encoder.h" />
     <ClInclude Include="Src\Module\Hardware\FlightControlUnit.h" />
+    <ClInclude Include="Src\Module\Hardware\PushPullEncoder.h" />
     <ClInclude Include="Src\Module\Hardware\StableButton.h" />
     <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h" />
     <ClInclude Include="Src\Module\ModuleBase.h" />

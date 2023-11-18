@@ -89,5 +89,11 @@
     <ClInclude Include="Src\SimServices.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\Encoder.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Module\Hardware\PushPullEncoder.h">
+      <Filter>Header Files\Module\Hardware</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
