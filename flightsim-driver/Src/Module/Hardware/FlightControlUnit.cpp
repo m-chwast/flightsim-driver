@@ -53,6 +53,10 @@ typedef struct
 		int32_t trkFpa;
 		int32_t metricAlt;
 	} unlightedButtons;
+	struct Others
+	{
+		int32_t altInc;	//100 or 1000
+	} others;
 } FCUData;
 
 static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
@@ -62,7 +66,7 @@ bool FlightControlUnit::DataInitialize()
 	bool initOk = true;
 	
 	//data is initialized manually to provide better control on sequence
-	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "number", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "Number", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_1_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32);
@@ -71,7 +75,7 @@ bool FlightControlUnit::DataInitialize()
 	initOk &= _simServices.SetUpData(GetID(), "AUTOPILOT MANAGED SPEED IN MACH", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_TRK_FPA_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_METRIC_ALT_TOGGLE", "Boolean", SIMCONNECT_DATATYPE_INT32);
-
+	initOk &= _simServices.SetUpData(GetID(), "L:XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT", "Number", SIMCONNECT_DATATYPE_INT32);
 	return initOk;
 }
 
@@ -193,6 +197,7 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_spdMachButton->SetState(fcuData->unlightedButtons.spdMach);
 	_trkFpaButton->SetState(fcuData->unlightedButtons.trkFpa);
 	_metricAltButton->SetState(fcuData->unlightedButtons.metricAlt);
+	_altIncrementSwitch->SetState(fcuData->others.altInc == 1000);
 
 	_console.Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
 	_console.Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
@@ -203,6 +208,7 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_console.Send("SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "\r\n");
 	_console.Send("TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "\r\n");
 	_console.Send("Metric Alt: " + std::to_string(_metricAltButton->IsActive()) + "\r\n");
+	_console.Send("Alt Inc: " + std::to_string(_altIncrementSwitch->IsActive() ? 1000 : 100) + "\r\n");
 	_console.Send("\r\n");
 }
 
