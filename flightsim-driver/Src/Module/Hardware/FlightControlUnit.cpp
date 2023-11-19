@@ -199,17 +199,20 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_metricAltButton->SetState(fcuData->unlightedButtons.metricAlt);
 	_altIncrementSwitch->SetState(fcuData->others.altInc == 1000);
 
-	_console.Send("A/THR: " + std::to_string(_autothrustButton->IsActive()) + "\r\n");
-	_console.Send("AP1: " + std::to_string(_autopilot1Button->IsActive()) + "\r\n");
-	_console.Send("AP2: " + std::to_string(_autopilot2Button->IsActive()) + "\r\n");
-	_console.Send("EXPED: " + std::to_string(_expediteButton->IsActive()) + "\r\n");
-	_console.Send("LOC: " + std::to_string(_locButton->IsActive()) + "\r\n");
-	_console.Send("APPR: " + std::to_string(_apprButton->IsActive()) + "\r\n");
-	_console.Send("SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "\r\n");
-	_console.Send("TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "\r\n");
-	_console.Send("Metric Alt: " + std::to_string(_metricAltButton->IsActive()) + "\r\n");
-	_console.Send("Alt Inc: " + std::to_string(_altIncrementSwitch->IsActive() ? 1000 : 100) + "\r\n");
-	_console.Send("\r\n");
+	std::string log(1000, '\0');
+	log = "\r\n";
+	log += "A/THR: " + std::to_string(_autothrustButton->IsActive()) + "; ";
+	log += "AP1: " + std::to_string(_autopilot1Button->IsActive()) + "; ";
+	log += "AP2: " + std::to_string(_autopilot2Button->IsActive()) + "; ";
+	log += "EXPED: " + std::to_string(_expediteButton->IsActive()) + "; ";
+	log += "LOC: " + std::to_string(_locButton->IsActive()) + "; ";
+	log += "APPR: " + std::to_string(_apprButton->IsActive()) + ";\r\n";
+	log += "SPD/MACH: " + std::to_string(_spdMachButton->IsActive()) + "; ";
+	log += "TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "; ";
+	log += "Metric Alt: " + std::to_string(_metricAltButton->IsActive()) + "; ";
+	log += "Alt Inc: " + std::to_string(_altIncrementSwitch->IsActive() ? 1000 : 100) + ";\r\n";
+	log += "\r\n";
+	_console.Send(log);
 }
 
 void FlightControlUnit::ProcessEvent(const SIMCONNECT_RECV_EVENT* event)
