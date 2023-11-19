@@ -59,6 +59,7 @@ typedef struct
 		int32_t hdg;
 		int32_t alt;
 		int32_t vs;
+		float fpa;
 	} encoders;
 	struct Others
 	{
@@ -89,6 +90,7 @@ bool FlightControlUnit::DataInitialize()
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_HEADING_SELECTED", "Degrees", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "AUTOPILOT ALTITUDE LOCK VAR:3", "Feet", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_VS_SELECTED", "Feet/minute", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_FPA_SELECTED", "Degrees", SIMCONNECT_DATATYPE_FLOAT32);
 	//others
 	initOk &= _simServices.SetUpData(GetID(), "L:XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT", "Number", SIMCONNECT_DATATYPE_INT32);
 	return initOk;
@@ -230,6 +232,7 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	log += "Spd sel: " + std::to_string(fcuData->encoders.spd) + "; ";
 	log += "Hdg sel: " + std::to_string(fcuData->encoders.hdg) + "; ";
 	log += "Alt sel: " + std::to_string(fcuData->encoders.alt) + "; ";
+	log += "FPA sel: " + std::to_string(fcuData->encoders.fpa) + "; ";
 	log += "VS sel: " + std::to_string(fcuData->encoders.vs) + ";\r\n";
 	
 	log += "\r\n";
