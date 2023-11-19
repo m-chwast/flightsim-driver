@@ -56,10 +56,16 @@ typedef struct
 	struct Encoders
 	{
 		int32_t spd;
+		int32_t spdManagedDashes;
+		int32_t spdManagedDot;
 		int32_t hdg;
+		int32_t hdgManagedDashes;
+		int32_t hdgManagedDot;
 		int32_t alt;
+		int32_t altManaged;
 		int32_t vs;
 		float fpa;
+		int32_t vsManaged;
 	} encoders;
 	struct Others
 	{
@@ -87,10 +93,16 @@ bool FlightControlUnit::DataInitialize()
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_METRIC_ALT_TOGGLE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	//encoders
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_SPEED_SELECTED", "Number", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_SPD_MANAGED_DASHES", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_SPD_MANAGED_DOT", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_HEADING_SELECTED", "Degrees", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_HDG_MANAGED_DASHES", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_HDG_MANAGED_DOT", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "AUTOPILOT ALTITUDE LOCK VAR:3", "Feet", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_ALT_MANAGED", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_VS_SELECTED", "Feet/minute", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_FPA_SELECTED", "Degrees", SIMCONNECT_DATATYPE_FLOAT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_VS_MANAGED", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	//others
 	initOk &= _simServices.SetUpData(GetID(), "L:XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT", "Number", SIMCONNECT_DATATYPE_INT32);
 	return initOk;
@@ -230,10 +242,18 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	log += "Alt Inc: " + std::to_string(_altIncrementSwitch->IsActive() ? 1000 : 100) + ";\r\n";
 
 	log += "Spd sel: " + std::to_string(fcuData->encoders.spd) + "; ";
+	log += "Spd dashes: " + std::to_string(fcuData->encoders.spdManagedDashes) + "; ";
+	log += "Spd dot: " + std::to_string(fcuData->encoders.spdManagedDot) + ";\r\n";
+	
 	log += "Hdg sel: " + std::to_string(fcuData->encoders.hdg) + "; ";
+	log += "Hdg dashes: " + std::to_string(fcuData->encoders.hdgManagedDashes) + "; ";
+	log += "Hdg dot: " + std::to_string(fcuData->encoders.hdgManagedDot) + ";\r\n";
+
 	log += "Alt sel: " + std::to_string(fcuData->encoders.alt) + "; ";
+	log += "Alt dot: " + std::to_string(fcuData->encoders.altManaged) + "; ";
 	log += "FPA sel: " + std::to_string(fcuData->encoders.fpa) + "; ";
-	log += "VS sel: " + std::to_string(fcuData->encoders.vs) + ";\r\n";
+	log += "VS sel: " + std::to_string(fcuData->encoders.vs) + "; ";
+	log += "VS dashes: " + std::to_string(fcuData->encoders.vsManaged) + ";\r\n";
 	
 	log += "\r\n";
 	_console.Send(log);
