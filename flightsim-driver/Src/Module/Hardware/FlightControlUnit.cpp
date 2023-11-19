@@ -55,7 +55,7 @@ typedef struct
 	} unlightedButtons;
 	struct Encoders
 	{
-		int32_t spd;
+		float spd;
 		int32_t spdManagedDashes;
 		int32_t spdManagedDot;
 		int32_t hdg;
@@ -74,6 +74,7 @@ typedef struct
 } FCUData;
 
 static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
+static_assert(sizeof(float) == 4, "Bad float size");
 
 bool FlightControlUnit::DataInitialize()
 {
@@ -92,7 +93,7 @@ bool FlightControlUnit::DataInitialize()
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_TRK_FPA_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_METRIC_ALT_TOGGLE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	//encoders
-	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_SPEED_SELECTED", "Number", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_SPEED_SELECTED", "Number", SIMCONNECT_DATATYPE_FLOAT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_SPD_MANAGED_DASHES", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_SPD_MANAGED_DOT", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_HEADING_SELECTED", "Degrees", SIMCONNECT_DATATYPE_INT32);
