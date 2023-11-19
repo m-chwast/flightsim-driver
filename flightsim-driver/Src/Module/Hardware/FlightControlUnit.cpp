@@ -53,6 +53,13 @@ typedef struct
 		int32_t trkFpa;
 		int32_t metricAlt;
 	} unlightedButtons;
+	struct Encoders
+	{
+		int32_t spd;
+		int32_t hdg;
+		int32_t alt;
+		int32_t vs;
+	} encoders;
 	struct Others
 	{
 		int32_t altInc;	//100 or 1000
@@ -66,15 +73,23 @@ bool FlightControlUnit::DataInitialize()
 	bool initOk = true;
 	
 	//data is initialized manually to provide better control on sequence
+	//lightedButtons
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOTHRUST_STATUS", "Number", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_1_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_2_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FMA_EXPEDITE_MODE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_LOC_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_FCU_APPR_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	//unlightedButtons
 	initOk &= _simServices.SetUpData(GetID(), "AUTOPILOT MANAGED SPEED IN MACH", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_TRK_FPA_MODE_ACTIVE", "Boolean", SIMCONNECT_DATATYPE_INT32);
 	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_METRIC_ALT_TOGGLE", "Boolean", SIMCONNECT_DATATYPE_INT32);
+	//encoders
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_SPEED_SELECTED", "Number", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_HEADING_SELECTED", "Degrees", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "AUTOPILOT ALTITUDE LOCK VAR:3", "Feet", SIMCONNECT_DATATYPE_INT32);
+	initOk &= _simServices.SetUpData(GetID(), "L:A32NX_AUTOPILOT_VS_SELECTED", "Feet/minute", SIMCONNECT_DATATYPE_INT32);
+	//others
 	initOk &= _simServices.SetUpData(GetID(), "L:XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT", "Number", SIMCONNECT_DATATYPE_INT32);
 	return initOk;
 }
@@ -211,6 +226,12 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	log += "TRK/FPA: " + std::to_string(_trkFpaButton->IsActive()) + "; ";
 	log += "Metric Alt: " + std::to_string(_metricAltButton->IsActive()) + "; ";
 	log += "Alt Inc: " + std::to_string(_altIncrementSwitch->IsActive() ? 1000 : 100) + ";\r\n";
+
+	log += "Spd sel: " + std::to_string(fcuData->encoders.spd) + "; ";
+	log += "Hdg sel: " + std::to_string(fcuData->encoders.hdg) + "; ";
+	log += "Alt sel: " + std::to_string(fcuData->encoders.alt) + "; ";
+	log += "VS sel: " + std::to_string(fcuData->encoders.vs) + ";\r\n";
+	
 	log += "\r\n";
 	_console.Send(log);
 }
