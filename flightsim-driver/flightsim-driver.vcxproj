@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\CommManager.cpp" />
     <ClCompile Include="Src\ConsoleManager.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Module\Hardware\Encoder.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="Src\SimServices.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\CommManager.h" />
     <ClInclude Include="Src\ConsoleManager.h" />
     <ClInclude Include="Src\Module\Hardware\Button.h" />
     <ClInclude Include="Src\Module\Hardware\Encoder.h" />

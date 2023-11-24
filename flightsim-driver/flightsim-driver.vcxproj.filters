@@ -60,6 +60,9 @@
     <ClCompile Include="Src\Module\Hardware\Encoder.cpp">
       <Filter>Source Files\Module\Hardware</Filter>
     </ClCompile>
+    <ClCompile Include="Src\CommManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Module\ModuleBase.h">
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h">
       <Filter>Header Files\Module\Hardware\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\CommManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
