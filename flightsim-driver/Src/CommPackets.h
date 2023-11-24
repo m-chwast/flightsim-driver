@@ -19,10 +19,27 @@ namespace Comm
 		uint16_t size;
 		uint8_t type;
 		uint32_t crc;
+
+		virtual std::vector<uint8_t> GetData() const
+		{
+			return std::vector<uint8_t>({ 
+				header, 
+				static_cast<uint8_t>(size >> 8), static_cast<uint8_t>(size),
+				type,
+				static_cast<uint8_t>(crc >> 24), static_cast<uint8_t>(crc >> 16), 
+				static_cast<uint8_t>(crc >> 8), static_cast<uint8_t>(crc) });
+		}
 	};
 
 	struct ModuleDataPacket : Packet
 	{
 		uint8_t moduleID;
+
+		virtual std::vector<uint8_t> GetData() const override
+		{
+			std::vector<uint8_t> data = Packet::GetData();
+			data.push_back(moduleID);
+			return data;
+		}
 	};
 }
