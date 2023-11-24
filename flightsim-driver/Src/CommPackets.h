@@ -44,9 +44,15 @@ namespace Comm
 
 		virtual std::vector<uint8_t> GetData() const override
 		{
-			std::vector<uint8_t> data = Packet::GetData();
-			data.push_back(moduleID);
-			return data;
+			std::vector<uint8_t> rawData = Packet::GetData();
+			rawData.reserve(GetBasicSize() + data.size());
+
+			rawData.push_back(moduleID);
+			for (uint8_t val : data)
+			{
+				rawData.push_back(val);
+			}
+			return rawData;
 		}
 	};
 }

@@ -21,7 +21,7 @@ namespace Comm
 	{
 		ModuleDataPacket* packet = new ModuleDataPacket();
 		packet->header = COMM_PACKET_HEADER_STD_SKIP_CRC;
-		packet->size = packet->GetBasicSize() + data.size();
+		packet->size = static_cast<uint16_t>(packet->GetBasicSize() + data.size());
 		packet->type = COMM_PACKET_TYPE_MODULE_DATA;
 		packet->crc = 0;		
 		packet->moduleID = moduleID;
