@@ -18,6 +18,35 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\ConsoleManager.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Module\Hardware\Encoder.cpp" />
+    <ClCompile Include="Src\Module\Hardware\FlightControlUnit.cpp" />
+    <ClCompile Include="Src\Module\ModuleBase.cpp" />
+    <ClCompile Include="Src\Module\ModuleHardware.cpp" />
+    <ClCompile Include="Src\Module\ModuleMaster.cpp" />
+    <ClCompile Include="Src\Program.cpp" />
+    <ClCompile Include="Src\SimController.cpp" />
+    <ClCompile Include="Src\SimServices.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\ConsoleManager.h" />
+    <ClInclude Include="Src\Module\Hardware\Button.h" />
+    <ClInclude Include="Src\Module\Hardware\Encoder.h" />
+    <ClInclude Include="Src\Module\Hardware\FlightControlUnit.h" />
+    <ClInclude Include="Src\Module\Hardware\HardwareElementBase.h" />
+    <ClInclude Include="Src\Module\Hardware\SimEvent.h" />
+    <ClInclude Include="Src\Module\Hardware\PushPullEncoder.h" />
+    <ClInclude Include="Src\Module\Hardware\StableButton.h" />
+    <ClInclude Include="Src\Module\Hardware\StableDataDrivenButton.h" />
+    <ClInclude Include="Src\Module\ModuleBase.h" />
+    <ClInclude Include="Src\Module\ModuleHardware.h" />
+    <ClInclude Include="Src\Module\ModuleMaster.h" />
+    <ClInclude Include="Src\Program.h" />
+    <ClInclude Include="Src\SimController.h" />
+    <ClInclude Include="Src\SimServices.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -59,15 +88,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\..\..\..\..\..\MSFS SDK\SimConnect SDK\VS\SimConnectClient.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\..\..\..\..\..\MSFS SDK\SimConnect SDK\VS\SimConnectClient.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\..\..\..\..\..\MSFS SDK\SimConnect SDK\VS\SimConnectClient.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\..\..\..\..\..\MSFS SDK\SimConnect SDK\VS\SimConnectClient.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -116,6 +149,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(MSFS_SDK)\SimConnect SDK\include;$(SolutionDir)\Src;$(SolutionDir)\Src\Module;$(SolutionDir)\Src\Module\Hardware</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +166,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(MSFS_SDK)\SimConnect SDK\include;$(SolutionDir)\Src;$(SolutionDir)\Src\Module;$(SolutionDir)\Src\Module\Hardware</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,9 +177,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
