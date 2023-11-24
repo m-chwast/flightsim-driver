@@ -30,8 +30,8 @@ protected:
 	SimEvent GetEvent(unsigned eventID) const { return SimEvent(eventID, GetEventName(eventID)); }
 
 public:
-	ModuleHardware(const SimServices& simServices, ConsoleManager& console, unsigned id)
-		: ModuleBase(simServices, console),
+	ModuleHardware(const ModuleUtils& utils, unsigned id)
+		: ModuleBase(utils),
 		_id{ id }
 	{
 		if (id == 0)

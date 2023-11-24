@@ -1,12 +1,13 @@
 #include "ModuleMaster.h"
 #include "FlightControlUnit.h"
 
-ModuleMaster::ModuleMaster(const SimServices& simServices, ConsoleManager& console)
-    : ModuleBase(simServices, console)
+
+ModuleMaster::ModuleMaster(const ModuleUtils& utils)
+    : ModuleBase(utils)
 {
     _name = "Master";
 
-    FlightControlUnit* flightControlUnit = new FlightControlUnit(simServices, _console, 1);
+    FlightControlUnit* flightControlUnit = new FlightControlUnit(utils, 1);
     _modules.push_back(flightControlUnit);
 }
 

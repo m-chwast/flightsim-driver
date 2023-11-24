@@ -3,6 +3,7 @@
 #include "SimController.h"
 #include "ConsoleManager.h"
 #include "CommManager.h"
+#include "ModuleUtils.h"
 
 
 class Program final
@@ -21,7 +22,8 @@ private:
 public:
 	Program()
 	{
-		moduleMaster = new ModuleMaster(simController.GetSimServices(), consoleManager);
+		ModuleUtils utils = ModuleUtils(simController.GetSimServices(), consoleManager, commManager);
+		moduleMaster = new ModuleMaster(utils);
 		simController.SetModuleMaster(moduleMaster);
 	}
 

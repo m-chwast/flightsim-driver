@@ -32,7 +32,7 @@ private:
 	void CreateFCUEncoders();
 
 public:
-	FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id);
+	FlightControlUnit(const ModuleUtils& utils, unsigned id);
 
 	virtual void ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data) override;
 	virtual void ProcessEvent(const SIMCONNECT_RECV_EVENT* event) override;

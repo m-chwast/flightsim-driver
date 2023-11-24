@@ -194,8 +194,8 @@ void FlightControlUnit::CreateFCUEncoders()
 	RegisterEncoder(_vsEncoder);
 }
 
-FlightControlUnit::FlightControlUnit(const SimServices& simServices, ConsoleManager& console, unsigned id)
-	: ModuleHardware(simServices, console, id)
+FlightControlUnit::FlightControlUnit(const ModuleUtils& utils, unsigned id)
+	: ModuleHardware(utils, id)
 {
 	_name = "FCU";
 	_dataUpdatePeriod = 1000;

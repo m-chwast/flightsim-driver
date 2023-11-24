@@ -3,6 +3,8 @@
 #include <string>
 #include "SimServices.h"
 #include "ConsoleManager.h"
+#include "ModuleUtils.h"
+
 
 class ModuleBase
 {
@@ -14,8 +16,8 @@ protected:
 	void PrintInitMessage();
 
 public:
-	ModuleBase(const SimServices& simServices, ConsoleManager& console)
-		: _simServices{simServices}, _console{console}
+	ModuleBase(const ModuleUtils& utils)
+		: _simServices{utils.GetSimServices()}, _console{utils.GetConsole()}
 	{}
 	
 	const char* GetName() const { return _name.c_str(); }
