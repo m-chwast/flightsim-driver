@@ -20,11 +20,10 @@ namespace Comm
 	void CommManager::SendData(unsigned moduleID, std::vector<uint8_t> data)
 	{
 		ModuleDataPacket* packet = new ModuleDataPacket();
-		packet->header = COMM_PACKET_HEADER_STD;
+		packet->header = COMM_PACKET_HEADER_STD_SKIP_CRC;
 		packet->size = packet->GetBasicSize() + data.size();
 		packet->type = COMM_PACKET_TYPE_MODULE_DATA;
-		packet->crc = 0;	//TODO implement crc
-		
+		packet->crc = 0;		
 		packet->moduleID = moduleID;
 		packet->data = data;
 

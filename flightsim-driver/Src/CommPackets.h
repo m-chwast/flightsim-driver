@@ -6,6 +6,7 @@ namespace Comm
 	enum PacketHeader
 	{
 		COMM_PACKET_HEADER_STD,
+		COMM_PACKET_HEADER_STD_SKIP_CRC,
 	};
 
 	enum PacketType
