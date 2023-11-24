@@ -2,6 +2,7 @@
 #include <thread>
 #include <vector>
 #include "ConsoleManager.h"
+#include "CommPackets.h"
 
 
 namespace Comm
@@ -14,6 +15,8 @@ namespace Comm
 
 		bool _commManagerCloseRequest = false;
 		std::thread* _commManagerThread = nullptr;
+
+		std::vector<const Packet*> _packetsToSend;
 
 		void Handler(bool& closeRequest);
 
