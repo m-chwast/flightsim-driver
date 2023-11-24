@@ -1,6 +1,7 @@
 #pragma once
 #include <thread>
 #include <vector>
+#include <mutex>
 #include "ConsoleManager.h"
 #include "CommPackets.h"
 
@@ -16,6 +17,7 @@ namespace Comm
 		bool _commManagerCloseRequest = false;
 		std::thread* _commManagerThread = nullptr;
 
+		std::mutex _packetsMutex;
 		std::vector<const Packet*> _packetsToSend;
 
 		void Handler(bool& closeRequest);
@@ -27,6 +29,7 @@ namespace Comm
 			_commManagerThread = new std::thread(&CommManager::Handler, this, std::ref(_commManagerCloseRequest));
 		}
 
+		void SendData(unsigned moduleID, std::vector<uint8_t> data);
 
 		~CommManager();
 	};

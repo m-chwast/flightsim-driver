@@ -17,6 +17,20 @@ namespace Comm
 		_console.Send("Exiting Comm Manager\r\n");
 	}
 
+	void CommManager::SendData(unsigned moduleID, std::vector<uint8_t> data)
+	{
+		ModuleDataPacket* packet = new ModuleDataPacket();
+		packet->header = COMM_PACKET_HEADER_STD;
+		packet->size = packet->GetBasicSize();
+		packet->type = COMM_PACKET_TYPE_MODULE_DATA;
+		packet->crc = 0;	//TODO implement crc
+		packet->moduleID = moduleID;
+
+		_packetsMutex.lock();
+		_packetsToSend.push_back(packet);
+		_packetsMutex.unlock();
+	}
+
 	CommManager::~CommManager()
 	{
 		_commManagerCloseRequest = true;
@@ -24,5 +38,4 @@ namespace Comm
 		std::cout << "Comm Manager thread joined\r\n";
 		delete _commManagerThread;
 	}
-
 }

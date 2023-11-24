@@ -15,10 +15,12 @@ namespace Comm
 
 	struct Packet
 	{
-		uint8_t header;
-		uint16_t size;
-		uint8_t type;
-		uint32_t crc;
+		uint8_t header = 0;
+		uint16_t size = 0;
+		uint8_t type = 0;
+		uint32_t crc = 0;
+
+		virtual constexpr uint16_t GetBasicSize() const { return sizeof(header) + sizeof(size) + sizeof(type) + sizeof(crc); }
 
 		virtual std::vector<uint8_t> GetData() const
 		{
@@ -33,7 +35,9 @@ namespace Comm
 
 	struct ModuleDataPacket : Packet
 	{
-		uint8_t moduleID;
+		uint8_t moduleID = 0;
+
+		virtual constexpr uint16_t GetBasicSize() const override { return sizeof(moduleID) + Packet::GetBasicSize(); }
 
 		virtual std::vector<uint8_t> GetData() const override
 		{
