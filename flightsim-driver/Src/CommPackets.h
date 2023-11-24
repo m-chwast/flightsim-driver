@@ -37,6 +37,8 @@ namespace Comm
 	{
 		uint8_t moduleID = 0;
 
+		std::vector<uint8_t> data;
+
 		virtual constexpr uint16_t GetBasicSize() const override { return sizeof(moduleID) + Packet::GetBasicSize(); }
 
 		virtual std::vector<uint8_t> GetData() const override

@@ -21,10 +21,12 @@ namespace Comm
 	{
 		ModuleDataPacket* packet = new ModuleDataPacket();
 		packet->header = COMM_PACKET_HEADER_STD;
-		packet->size = packet->GetBasicSize();
+		packet->size = packet->GetBasicSize() + data.size();
 		packet->type = COMM_PACKET_TYPE_MODULE_DATA;
 		packet->crc = 0;	//TODO implement crc
+		
 		packet->moduleID = moduleID;
+		packet->data = data;
 
 		_packetsMutex.lock();
 		_packetsToSend.push_back(packet);
