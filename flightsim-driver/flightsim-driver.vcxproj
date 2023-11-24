@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\CommManager.h" />
+    <ClInclude Include="Src\CommPackets.h" />
     <ClInclude Include="Src\ConsoleManager.h" />
     <ClInclude Include="Src\Module\Hardware\Button.h" />
     <ClInclude Include="Src\Module\Hardware\Encoder.h" />
