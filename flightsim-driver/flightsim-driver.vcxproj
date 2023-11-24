@@ -46,6 +46,7 @@
     <ClInclude Include="Src\Module\ModuleBase.h" />
     <ClInclude Include="Src\Module\ModuleHardware.h" />
     <ClInclude Include="Src\Module\ModuleMaster.h" />
+    <ClInclude Include="Src\Module\ModuleUtils.h" />
     <ClInclude Include="Src\Program.h" />
     <ClInclude Include="Src\SimController.h" />
     <ClInclude Include="Src\SimServices.h" />
