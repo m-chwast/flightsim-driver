@@ -1,5 +1,5 @@
-#include <thread>
 #include "CommManager.h"
+#include <iostream>
 
 
 void CommManager::Handler(bool& closeRequest)
@@ -12,4 +12,12 @@ void CommManager::Handler(bool& closeRequest)
 	}
 
 	_console.Send("Exiting Comm Manager\r\n");
+}
+
+CommManager::~CommManager()
+{
+	_commManagerCloseRequest = true;
+	_commManagerThread->join();
+	std::cout << "Comm Manager thread joined\r\n";
+	delete _commManagerThread;
 }
