@@ -1,25 +1,31 @@
 #pragma once
 #include <thread>
+#include <vector>
 #include "ConsoleManager.h"
 
 
-class CommManager
+namespace Comm
 {
-private:
-	ConsoleManager& _console;
 
-	bool _commManagerCloseRequest = false;
-	std::thread* _commManagerThread = nullptr;
-
-	void Handler(bool& closeRequest);
-
-public:
-	CommManager(ConsoleManager& console)
-		: _console{ console }
+	class CommManager
 	{
-		_commManagerThread = new std::thread(&CommManager::Handler, this, std::ref(_commManagerCloseRequest));
-	}
+	private:
+		ConsoleManager& _console;
 
-	
-	~CommManager();
-};
+		bool _commManagerCloseRequest = false;
+		std::thread* _commManagerThread = nullptr;
+
+		void Handler(bool& closeRequest);
+
+	public:
+		CommManager(ConsoleManager& console)
+			: _console{ console }
+		{
+			_commManagerThread = new std::thread(&CommManager::Handler, this, std::ref(_commManagerCloseRequest));
+		}
+
+
+		~CommManager();
+	};
+
+}

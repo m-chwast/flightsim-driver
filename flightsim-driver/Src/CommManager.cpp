@@ -2,22 +2,27 @@
 #include <iostream>
 
 
-void CommManager::Handler(bool& closeRequest)
+namespace Comm
 {
-	_console.Send("Comm Manager running\r\n");
 
-	while (closeRequest == false)
+	void CommManager::Handler(bool& closeRequest)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(20));
+		_console.Send("Comm Manager running\r\n");
+
+		while (closeRequest == false)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(20));
+		}
+
+		_console.Send("Exiting Comm Manager\r\n");
 	}
 
-	_console.Send("Exiting Comm Manager\r\n");
-}
+	CommManager::~CommManager()
+	{
+		_commManagerCloseRequest = true;
+		_commManagerThread->join();
+		std::cout << "Comm Manager thread joined\r\n";
+		delete _commManagerThread;
+	}
 
-CommManager::~CommManager()
-{
-	_commManagerCloseRequest = true;
-	_commManagerThread->join();
-	std::cout << "Comm Manager thread joined\r\n";
-	delete _commManagerThread;
 }

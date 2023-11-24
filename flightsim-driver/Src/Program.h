@@ -11,7 +11,7 @@ private:
 	
 	ConsoleManager consoleManager;
 	SimController simController = SimController(consoleManager, nullptr);
-	CommManager commManager = CommManager(consoleManager);
+	Comm::CommManager commManager = Comm::CommManager(consoleManager);
 
 	ModuleMaster * moduleMaster;
 
