@@ -69,6 +69,16 @@ const char* ModuleHardware::GetEventName(unsigned eventID) const
 	return _events.at(eventID);
 }
 
+void ModuleHardware::SendDataToHardware(const uint8_t* data, unsigned size) const
+{ 
+	std::vector<uint8_t> dataToSend(size);
+	for (int i = 0; i < size; i++)
+	{
+		dataToSend.push_back(data[i]);
+	}
+	_commManager.SendData(GetID(), dataToSend); 
+}
+
 ModuleHardware::~ModuleHardware()
 {
 	for (const Button* b : _buttons)

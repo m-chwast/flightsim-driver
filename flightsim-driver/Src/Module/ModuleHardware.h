@@ -29,7 +29,7 @@ protected:
 	const char* GetEventName(unsigned eventID) const;
 	SimEvent GetEvent(unsigned eventID) const { return SimEvent(eventID, GetEventName(eventID)); }
 
-	void SendDataToHardware(const std::vector<uint8_t>& data) const { _commManager.SendData(GetID(), data); }
+	void SendDataToHardware(const uint8_t* data, unsigned size) const;
 
 public:
 	ModuleHardware(const ModuleUtils& utils, unsigned id)

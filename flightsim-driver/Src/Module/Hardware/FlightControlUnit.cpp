@@ -207,6 +207,8 @@ void FlightControlUnit::SendFCUDataToHardware(const FCUData& fcuData) const
 		.alt = static_cast<uint16_t>(fcuData.encoders.alt),
 		.vsFpa = static_cast<int16_t>(fcuData.unlightedButtons.trkFpa ? fcuData.encoders.fpa * 10 : fcuData.encoders.vs),
 	};
+
+	SendDataToHardware(reinterpret_cast<const uint8_t*>(&hdata), sizeof(hdata));
 }
 
 FlightControlUnit::FlightControlUnit(const ModuleUtils& utils, unsigned id)
