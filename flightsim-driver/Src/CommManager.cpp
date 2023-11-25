@@ -17,7 +17,7 @@ namespace Comm
 		_console.Send("Exiting Comm Manager\r\n");
 	}
 
-	void CommManager::SendData(unsigned moduleID, std::vector<uint8_t> data)
+	void CommManager::SendData(unsigned moduleID, const std::vector<uint8_t>& data)
 	{
 		ModuleDataPacket* packet = new ModuleDataPacket();
 		packet->header = COMM_PACKET_HEADER_STD_SKIP_CRC;

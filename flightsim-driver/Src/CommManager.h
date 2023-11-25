@@ -29,7 +29,7 @@ namespace Comm
 			_commManagerThread = new std::thread(&CommManager::Handler, this, std::ref(_commManagerCloseRequest));
 		}
 
-		void SendData(unsigned moduleID, std::vector<uint8_t> data);
+		void SendData(unsigned moduleID, const std::vector<uint8_t>& data);
 
 		~CommManager();
 	};
