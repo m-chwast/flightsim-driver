@@ -73,8 +73,36 @@ typedef struct
 	} others;
 } FCUData;
 
+typedef struct
+{
+	//indicators/buttons
+	uint8_t autothrottle : 1;
+	uint8_t autopilot1 : 1;
+	uint8_t autopilot2 : 1;
+	uint8_t expedite : 1;
+	uint8_t loc : 1;
+	uint8_t appr : 1;
+	//flags/modes
+	uint8_t spdMach : 1;
+	uint8_t fpaActive : 1;
+	uint8_t spdDashes : 1;
+	uint8_t spdDot : 1;
+	uint8_t hdgDashes : 1;
+	uint8_t hdgDot : 1;
+	uint8_t altManaged : 1;
+	uint8_t vsManaged : 1;
+	uint8_t altInc : 1;
+	//values
+	uint16_t spd;
+	uint16_t hdg;
+	uint16_t alt;
+	uint16_t vsFpa;
+} HardwareData;
+
+
 static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
 static_assert(sizeof(float) == 4, "Bad float size");
+
 
 bool FlightControlUnit::DataInitialize()
 {
