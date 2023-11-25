@@ -59,8 +59,8 @@ typedef struct
 	uint16_t spd;
 	uint16_t hdg;
 	uint16_t alt;
-	uint16_t vsFpa;
-} HardwareData;
+	int16_t vsFpa;
+} HardwareFCUData;
 
 
 bool FlightControlUnit::DataInitialize()
@@ -183,7 +183,30 @@ void FlightControlUnit::CreateFCUEncoders()
 
 void FlightControlUnit::SendFCUDataToHardware(const FCUData& fcuData) const
 {
+	const HardwareFCUData hdata =
+	{
+		.autothrottle = static_cast<uint8_t>(fcuData.lightedButtons.autopilotAutothrottleArm),
+		.autopilot1 = static_cast<uint8_t>(fcuData.lightedButtons.autopilot1Active),
+		.autopilot2 = static_cast<uint8_t>(fcuData.lightedButtons.autopilot2Active),
+		.expedite = static_cast<uint8_t>(fcuData.lightedButtons.expediteMode),
+		.loc = static_cast<uint8_t>(fcuData.lightedButtons.locModeActive),
+		.appr = static_cast<uint8_t>(fcuData.lightedButtons.apprModeActive),
 
+		.spdMach = static_cast<uint8_t>(fcuData.unlightedButtons.spdMach),
+		.fpaActive = static_cast<uint8_t>(fcuData.unlightedButtons.trkFpa),
+		.spdDashes = static_cast<uint8_t>(fcuData.encoders.spdManagedDashes),
+		.spdDot = static_cast<uint8_t>(fcuData.encoders.spdManagedDot),
+		.hdgDashes = static_cast<uint8_t>(fcuData.encoders.hdgManagedDashes),
+		.hdgDot = static_cast<uint8_t>(fcuData.encoders.hdgManagedDot),
+		.altManaged = static_cast<uint8_t>(fcuData.encoders.altManaged),
+		.vsManaged = static_cast<uint8_t>(fcuData.encoders.vsManaged),
+		.altInc = static_cast<uint8_t>(fcuData.others.altInc == 100 ? 0 : 1),
+
+		.spd = static_cast<uint16_t>(fcuData.unlightedButtons.spdMach ? fcuData.encoders.spd * 100 : fcuData.encoders.spd),
+		.hdg = static_cast<uint16_t>(fcuData.encoders.hdg),
+		.alt = static_cast<uint16_t>(fcuData.encoders.alt),
+		.vsFpa = static_cast<int16_t>(fcuData.unlightedButtons.trkFpa ? fcuData.encoders.fpa * 10 : fcuData.encoders.vs),
+	};
 }
 
 FlightControlUnit::FlightControlUnit(const ModuleUtils& utils, unsigned id)
@@ -220,6 +243,8 @@ void FlightControlUnit::ProcessData(const SIMCONNECT_RECV_SIMOBJECT_DATA* data)
 	_trkFpaButton->SetState(fcuData->unlightedButtons.trkFpa);
 	_metricAltButton->SetState(fcuData->unlightedButtons.metricAlt);
 	_altIncrementSwitch->SetState(fcuData->others.altInc == 1000);
+
+	SendFCUDataToHardware(*fcuData);
 
 	std::string log(1000, '\0');
 	log = "\r\n";
