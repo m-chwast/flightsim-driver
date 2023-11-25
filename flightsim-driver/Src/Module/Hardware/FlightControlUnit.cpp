@@ -38,43 +38,6 @@ enum FCUEventType
 
 typedef struct
 {
-	struct LightedButtons
-	{
-		int32_t autopilotAutothrottleArm;
-		int32_t autopilot1Active;
-		int32_t autopilot2Active;
-		int32_t expediteMode;
-		int32_t locModeActive;
-		int32_t apprModeActive;
-	} lightedButtons;
-	struct UnlightedButtons
-	{
-		int32_t spdMach;
-		int32_t trkFpa;
-		int32_t metricAlt;
-	} unlightedButtons;
-	struct Encoders
-	{
-		float spd;
-		int32_t spdManagedDashes;
-		int32_t spdManagedDot;
-		int32_t hdg;
-		int32_t hdgManagedDashes;
-		int32_t hdgManagedDot;
-		int32_t alt;
-		int32_t altManaged;
-		int32_t vs;
-		float fpa;
-		int32_t vsManaged;
-	} encoders;
-	struct Others
-	{
-		int32_t altInc;	//100 or 1000
-	} others;
-} FCUData;
-
-typedef struct
-{
 	//indicators/buttons
 	uint8_t autothrottle : 1;
 	uint8_t autopilot1 : 1;
@@ -98,10 +61,6 @@ typedef struct
 	uint16_t alt;
 	uint16_t vsFpa;
 } HardwareData;
-
-
-static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
-static_assert(sizeof(float) == 4, "Bad float size");
 
 
 bool FlightControlUnit::DataInitialize()
@@ -220,6 +179,11 @@ void FlightControlUnit::CreateFCUEncoders()
 
 	_vsEncoder = new PushPullEncoder(base, GetEvent(EVENT_VS_INC), GetEvent(EVENT_VS_DEC), GetEvent(EVENT_VS_PUSH), GetEvent(EVENT_VS_PULL));
 	RegisterEncoder(_vsEncoder);
+}
+
+void FlightControlUnit::SendFCUDataToHardware(const FCUData& fcuData) const
+{
+
 }
 
 FlightControlUnit::FlightControlUnit(const ModuleUtils& utils, unsigned id)

@@ -8,6 +8,47 @@
 class FlightControlUnit final : public ModuleHardware
 {
 private:
+	typedef struct
+	{
+		struct LightedButtons
+		{
+			int32_t autopilotAutothrottleArm;
+			int32_t autopilot1Active;
+			int32_t autopilot2Active;
+			int32_t expediteMode;
+			int32_t locModeActive;
+			int32_t apprModeActive;
+		} lightedButtons;
+		struct UnlightedButtons
+		{
+			int32_t spdMach;
+			int32_t trkFpa;
+			int32_t metricAlt;
+		} unlightedButtons;
+		struct Encoders
+		{
+			float spd;
+			int32_t spdManagedDashes;
+			int32_t spdManagedDot;
+			int32_t hdg;
+			int32_t hdgManagedDashes;
+			int32_t hdgManagedDot;
+			int32_t alt;
+			int32_t altManaged;
+			int32_t vs;
+			float fpa;
+			int32_t vsManaged;
+		} encoders;
+		struct Others
+		{
+			int32_t altInc;	//100 or 1000
+		} others;
+	} FCUData;
+
+	static_assert(std::is_standard_layout<FCUData>::value, "FCUData is not-standard layout");
+	static_assert(sizeof(float) == 4, "Bad float size");
+
+
 	StableButton* _autothrustButton;
 	StableButton* _autopilot1Button;
 	StableButton* _autopilot2Button;
@@ -30,6 +71,8 @@ private:
 	void RegisterFCUEvents();
 	void CreateFCUButtons();
 	void CreateFCUEncoders();
+
+	void SendFCUDataToHardware(const FCUData& fcuData) const;
 
 public:
 	FlightControlUnit(const ModuleUtils& utils, unsigned id);
